@@ -16,12 +16,13 @@ namespace WindowsFormsApplication2
     {
         AdventureWorksDS ds = new AdventureWorksDS();
         DataSet ds2 = new DataSet();
+        string connectionString;
 
         public Form3()
         {
             InitializeComponent();
             
-            var connectionString = ConfigurationManager.
+            connectionString = ConfigurationManager.
                 ConnectionStrings["Default"].ConnectionString;
             using (var conn = new SqlConnection(connectionString))
             {
@@ -81,6 +82,65 @@ namespace WindowsFormsApplication2
             textBoxLastName.Text = "";
             textBoxMaritalStatus.Text = "";
             textBoxGender.Text = "";
+        }
+
+        //Create
+        private void buttonCreate_Click(object sender, EventArgs e)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                var firstName = textboxFirstName.Text;
+                var lastName = textBoxLastName.Text;
+                var maritalStatus = textBoxMaritalStatus.Text;
+                var gender = textBoxGender.Text;
+
+
+                var cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText =
+                    @"  INSERT INTO Person.BusinessEntity (rowguid, ModifiedDate)
+                        VALUES (NEWID(), GETDATE());
+
+                        DECLARE @id int;
+                        SET @id = SCOPE_IDENTITY();
+
+                        INSERT INTO Person.Person (BusinessEntityId, FirstName, LastName, 
+                            PersonType, NameStyle, EmailPromotion, rowguid, ModifiedDate)
+                        VALUES (@id, @fname, @lname, 'EM', 0, 0, NEWID(), GETDATE());
+
+                        INSERT INTO HumanResources.Employee (BusinessEntityId, MaritalStatus, Gender,
+                            NationalIdNumber, 
+                            LoginID, JobTitle, BirthDate, HireDate, SalariedFlag,
+                            VacationHours, SickLeaveHours, CurrentFlag, rowguid, ModifiedDate)
+                        VALUES (@id, @mstat, @gender, 
+                            SUBSTRING(CONVERT(NVARCHAR(50), NEWID()),1, 15), 
+                            @fname + @lname + '@example.com', '', '1982-01-01', GETDATE(), 0, 
+                            0, 0, 1, NEWID(), GETDATE());
+
+                        SELECT @id";
+                cmd.Parameters.AddWithValue("@fname", firstName);
+                cmd.Parameters.AddWithValue("@lname", lastName);
+                cmd.Parameters.AddWithValue("@mstat", maritalStatus);
+                cmd.Parameters.AddWithValue("@gender", gender);
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                var id = cmd.ExecuteScalar();
+                textboxId.Text = id.ToString();
+                conn.Close();
+            }
+        }
+
+        //Update
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //Delete
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -40,6 +40,9 @@
             this.textboxId = new System.Windows.Forms.TextBox();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.buttonUTSearch = new System.Windows.Forms.Button();
+            this.buttonUpdate = new System.Windows.Forms.Button();
+            this.buttonCreate = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -142,11 +145,44 @@
             this.buttonUTSearch.UseVisualStyleBackColor = true;
             this.buttonUTSearch.Click += new System.EventHandler(this.buttonUTSearch_Click);
             // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.Location = new System.Drawing.Point(354, 155);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(102, 23);
+            this.buttonUpdate.TabIndex = 12;
+            this.buttonUpdate.Text = "Save Changes";
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
+            // 
+            // buttonCreate
+            // 
+            this.buttonCreate.Location = new System.Drawing.Point(354, 126);
+            this.buttonCreate.Name = "buttonCreate";
+            this.buttonCreate.Size = new System.Drawing.Size(102, 23);
+            this.buttonCreate.TabIndex = 13;
+            this.buttonCreate.Text = "Create New";
+            this.buttonCreate.UseVisualStyleBackColor = true;
+            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(354, 184);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(102, 23);
+            this.buttonDelete.TabIndex = 14;
+            this.buttonDelete.Text = "Delete Record";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(511, 334);
+            this.ClientSize = new System.Drawing.Size(511, 222);
+            this.Controls.Add(this.buttonDelete);
+            this.Controls.Add(this.buttonCreate);
+            this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonUTSearch);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.textboxId);
@@ -180,5 +216,8 @@
         private System.Windows.Forms.TextBox textboxId;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Button buttonUTSearch;
+        private System.Windows.Forms.Button buttonUpdate;
+        private System.Windows.Forms.Button buttonCreate;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }
