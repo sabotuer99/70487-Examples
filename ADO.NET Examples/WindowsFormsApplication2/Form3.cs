@@ -16,17 +16,25 @@ namespace WindowsFormsApplication2
     {
         AdventureWorksDS ds = new AdventureWorksDS();
         DataSet ds2 = new DataSet();
+        IDataAdapter da = new SqlDataAdapter();
         string connectionString;
 
         public Form3()
         {
             InitializeComponent();
-            
+
+            fillDatasets();
+        }
+
+        private void fillDatasets() {
+            ds = new AdventureWorksDS();
+            ds2 = new DataSet();
+
             connectionString = ConfigurationManager.
                 ConnectionStrings["Default"].ConnectionString;
             using (var conn = new SqlConnection(connectionString))
             {
-                var da = new SqlDataAdapter(
+                da = new SqlDataAdapter(
                     @"SELECT * FROM HumanResources.Employee; 
                       SELECT * FROM Person.Person", conn);
                 da.TableMappings.Add("Table", "Employee");
@@ -35,16 +43,17 @@ namespace WindowsFormsApplication2
                 da.Fill(ds2);
 
                 //Add constraints and relations to untyped dataset
-                ds2.Tables["Employee"].Constraints.Add("Emp_PK", 
+                ds2.Tables["Employee"].Constraints.Add("Emp_PK",
                     ds2.Tables["Employee"].Columns[0], true);
-                ds2.Tables["Person"].Constraints.Add("Person_PK", 
+                ds2.Tables["Person"].Constraints.Add("Person_PK",
                     ds2.Tables["Person"].Columns[0], true);
-                string[] columns = {"BusinessEntityId"};
-                var relation = new DataRelation("FK_Person_Employee", 
+                string[] columns = { "BusinessEntityId" };
+                var relation = new DataRelation("FK_Person_Employee",
                     ds2.Tables["Person"].Columns[0],
                     ds2.Tables["Employee"].Columns[0]);
                 ds2.Relations.Add(relation);
             }
+        
         }
 
         //Typed DataSet
@@ -129,12 +138,48 @@ namespace WindowsFormsApplication2
                 textboxId.Text = id.ToString();
                 conn.Close();
             }
+
+            fillDatasets();
         }
 
         //Update
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                var id = Int32.Parse(textboxId.Text);
+                var firstName = textboxFirstName.Text;
+                var lastName = textBoxLastName.Text;
+                var maritalStatus = textBoxMaritalStatus.Text;
+                var gender = textBoxGender.Text;
 
+
+                var cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText =
+                    @"  UPDATE Person.Person 
+                        SET FirstName = @fname, 
+                            LastName = @lname
+                        WHERE BusinessEntityId = @id;
+
+                        UPDATE HumanResources.Employee
+                        SET MaritalStatus = @mstat, 
+                            Gender = @gender
+                        WHERE BusinessEntityId = @id;";
+
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@fname", firstName);
+                cmd.Parameters.AddWithValue("@lname", lastName);
+                cmd.Parameters.AddWithValue("@mstat", maritalStatus);
+                cmd.Parameters.AddWithValue("@gender", gender);
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+
+            fillDatasets();
         }
 
         //Delete
