@@ -34,11 +34,7 @@ namespace WindowsFormsApplication2
                 ConnectionStrings["Default"].ConnectionString;
             using (var conn = new SqlConnection(connectionString))
             {
-                da = new SqlDataAdapter(
-                    @"SELECT * FROM HumanResources.Employee; 
-                      SELECT * FROM Person.Person", conn);
-                da.TableMappings.Add("Table", "Employee");
-                da.TableMappings.Add("Table1", "Person");
+                initDataAdapter(conn);
                 da.Fill(ds);
                 da.Fill(ds2);
 
@@ -47,13 +43,30 @@ namespace WindowsFormsApplication2
                     ds2.Tables["Employee"].Columns[0], true);
                 ds2.Tables["Person"].Constraints.Add("Person_PK",
                     ds2.Tables["Person"].Columns[0], true);
+                ds2.Tables["BusinessEntity"].Constraints.Add("BusinessEntity_PK",
+                    ds2.Tables["BusinessEntity"].Columns[0], true);
                 string[] columns = { "BusinessEntityId" };
                 var relation = new DataRelation("FK_Person_Employee",
                     ds2.Tables["Person"].Columns[0],
                     ds2.Tables["Employee"].Columns[0]);
+                var relation2 = new DataRelation("FK_BusinessEntity_Person",
+                    ds2.Tables["BusinessEntity"].Columns[0],
+                    ds2.Tables["Person"].Columns[0]);
                 ds2.Relations.Add(relation);
+                ds2.Relations.Add(relation2);
             }
         
+        }
+
+        private void initDataAdapter(SqlConnection conn){
+            da = new SqlDataAdapter(
+                @"SELECT * FROM HumanResources.Employee; 
+                    SELECT * FROM Person.Person;
+                    SELECT * FROM Person.BusinessEntity", conn);
+            da.TableMappings.Add("Table", "Employee");
+            da.TableMappings.Add("Table1", "Person");
+            da.TableMappings.Add("Table2", "BusinessEntity");
+            var cmb = new SqlCommandBuilder((SqlDataAdapter) da);
         }
 
         //Typed DataSet
@@ -93,9 +106,88 @@ namespace WindowsFormsApplication2
             textBoxGender.Text = "";
         }
 
+        
         //Create
         private void buttonCreate_Click(object sender, EventArgs e)
         {
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                initDataAdapter(conn);
+
+                var firstName = textboxFirstName.Text;
+                var lastName = textBoxLastName.Text;
+                var maritalStatus = textBoxMaritalStatus.Text;
+                var gender = textBoxGender.Text;
+
+                var be = ds.BusinessEntity.NewBusinessEntityRow();
+                be.rowguid = Guid.NewGuid();
+                be.ModifiedDate = DateTime.Now;
+                be.BusinessEntityID = ds.BusinessEntity.Rows.Count + 1;
+                ds.BusinessEntity.Rows.Add(be);
+                textboxId.Text = be.BusinessEntityID.ToString();
+                Console.Out.WriteLine(be.BusinessEntityID.ToString());
+                ds.AcceptChanges();
+                da.Update(ds);
+                
+
+                var per = ds.Person.NewPersonRow();
+                per.FirstName = firstName;
+                per.LastName = lastName;
+                per.PersonType = "EM";
+                per.NameStyle = false;
+                per.EmailPromotion = 0;
+                per.rowguid = Guid.NewGuid();
+                per.ModifiedDate = DateTime.Now;
+                //per.BusinessEntityID = be.BusinessEntityID;
+                per.BusinessEntityRow = be;
+                ds.Person.Rows.Add(per);
+                da.Update(ds);
+
+                var emp = ds.Employee.NewEmployeeRow();
+                emp.Gender = gender;
+                emp.MaritalStatus = maritalStatus;
+                emp.NationalIDNumber = Guid.NewGuid().ToString().Substring(0, 15);
+                emp.LoginID = firstName + lastName + "@example.com";
+                emp.BirthDate = new DateTime(1982, 1, 1);
+                emp.JobTitle = "";
+                emp.HireDate = DateTime.Now;
+                emp.SalariedFlag = false;
+                emp.VacationHours = 0;
+                emp.SickLeaveHours = 0;
+                emp.CurrentFlag = true;
+                emp.rowguid = Guid.NewGuid();
+                emp.ModifiedDate = new DateTime(2015, 1, 1);
+                //emp.BusinessEntityID = be.BusinessEntityID;
+                emp.PersonRow = per;
+                emp.BusinessEntityID = per.BusinessEntityRow.BusinessEntityID;
+                ds.Employee.Rows.Add(emp);
+                da.Update(ds);
+            }
+            
+
+
+
+
+
+
+
+
+
+            /*
+            DataRow dr = ds.Tables["Person"].NewRow();
+            dr["BusinessEntityId"] = 1;
+            dr["FirstName"] = firstName;
+            dr["LastName"] = lastName;
+
+            ds.Tables["Person"].Rows.Add(dr);
+
+            da.Update(ds);
+
+
+
+
+            /*
             using (var conn = new SqlConnection(connectionString))
             {
                 var firstName = textboxFirstName.Text;
@@ -139,7 +231,7 @@ namespace WindowsFormsApplication2
                 conn.Close();
             }
 
-            fillDatasets();
+            fillDatasets();*/
         }
 
         //Update
