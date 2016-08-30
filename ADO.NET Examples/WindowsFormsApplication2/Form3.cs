@@ -185,7 +185,36 @@ namespace WindowsFormsApplication2
         //Delete
         private void buttonDelete_Click(object sender, EventArgs e)
         {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                var id = Int32.Parse(textboxId.Text);
+                var firstName = textboxFirstName.Text;
+                var lastName = textBoxLastName.Text;
+                var maritalStatus = textBoxMaritalStatus.Text;
+                var gender = textBoxGender.Text;
 
+
+                var cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText =
+                    @"  DELETE FROM HumanResources.Employee 
+                        WHERE BusinessEntityId = @id;
+
+                        DELETE FROM Person.Person
+                        WHERE BusinessEntityId = @id;
+
+                        DELETE FROM Person.BusinessEntity
+                        WHERE BusinessEntityId = @id;";
+
+                cmd.Parameters.AddWithValue("@id", id);
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+
+            fillDatasets();
         }
     }
 }
