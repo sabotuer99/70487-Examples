@@ -16,7 +16,7 @@ namespace WindowsFormsApplication2
     {
         AdventureWorksDS ds = new AdventureWorksDS();
         DataSet ds2 = new DataSet();
-        IDataAdapter da = new SqlDataAdapter();
+        SqlDataAdapter da = new SqlDataAdapter();
         string connectionString;
 
         public Form3()
@@ -61,12 +61,35 @@ namespace WindowsFormsApplication2
         private void initDataAdapter(SqlConnection conn){
             da = new SqlDataAdapter(
                 @"SELECT * FROM HumanResources.Employee; 
-                    SELECT * FROM Person.Person;
-                    SELECT * FROM Person.BusinessEntity", conn);
+                  SELECT * FROM Person.Person;
+                  SELECT * FROM Person.BusinessEntity", conn);
             da.TableMappings.Add("Table", "Employee");
             da.TableMappings.Add("Table1", "Person");
             da.TableMappings.Add("Table2", "BusinessEntity");
-            var cmb = new SqlCommandBuilder((SqlDataAdapter) da);
+            var cmb = new SqlCommandBuilder(da);
+        }
+
+        private void initBusinessEntityDataAdapter(SqlConnection conn){
+            da = new SqlDataAdapter(
+                @"SELECT * FROM Person.BusinessEntity", conn);
+            da.TableMappings.Add("Table", "BusinessEntity");
+            var cmb = new SqlCommandBuilder(da);
+        }
+
+        private void initPersonDataAdapter(SqlConnection conn)
+        {
+            da = new SqlDataAdapter(
+                @"SELECT * FROM Person.Person", conn);
+            da.TableMappings.Add("Table", "Person");
+            var cmb = new SqlCommandBuilder(da);
+        }
+
+        private void initEmployeeDataAdapter(SqlConnection conn)
+        {
+            da = new SqlDataAdapter(
+                @"SELECT * FROM HumanResources.Employee", conn);
+            da.TableMappings.Add("Table", "Employee");
+            var cmb = new SqlCommandBuilder(da);
         }
 
         //Typed DataSet
@@ -113,7 +136,8 @@ namespace WindowsFormsApplication2
 
             using (var conn = new SqlConnection(connectionString))
             {
-                initDataAdapter(conn);
+                //initDataAdapter(conn);
+                initBusinessEntityDataAdapter(conn);
 
                 var firstName = textboxFirstName.Text;
                 var lastName = textBoxLastName.Text;
@@ -123,14 +147,14 @@ namespace WindowsFormsApplication2
                 var be = ds.BusinessEntity.NewBusinessEntityRow();
                 be.rowguid = Guid.NewGuid();
                 be.ModifiedDate = DateTime.Now;
-                be.BusinessEntityID = ds.BusinessEntity.Rows.Count + 1;
+                //be.BusinessEntityID = ds.BusinessEntity.Rows.Count + 1;
                 ds.BusinessEntity.Rows.Add(be);
                 textboxId.Text = be.BusinessEntityID.ToString();
                 Console.Out.WriteLine(be.BusinessEntityID.ToString());
-                ds.AcceptChanges();
-                da.Update(ds);
-                
+                //ds.AcceptChanges();
+                da.Update(ds.BusinessEntity);
 
+                initPersonDataAdapter(conn);
                 var per = ds.Person.NewPersonRow();
                 per.FirstName = firstName;
                 per.LastName = lastName;
@@ -142,8 +166,9 @@ namespace WindowsFormsApplication2
                 //per.BusinessEntityID = be.BusinessEntityID;
                 per.BusinessEntityRow = be;
                 ds.Person.Rows.Add(per);
-                da.Update(ds);
+                da.Update(ds.Person);
 
+                initEmployeeDataAdapter(conn);
                 var emp = ds.Employee.NewEmployeeRow();
                 emp.Gender = gender;
                 emp.MaritalStatus = maritalStatus;
@@ -162,7 +187,7 @@ namespace WindowsFormsApplication2
                 emp.PersonRow = per;
                 emp.BusinessEntityID = per.BusinessEntityRow.BusinessEntityID;
                 ds.Employee.Rows.Add(emp);
-                da.Update(ds);
+                da.Update(ds.Employee);
             }
             
 

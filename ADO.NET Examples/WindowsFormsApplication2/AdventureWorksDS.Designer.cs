@@ -30,9 +30,9 @@ namespace WindowsFormsApplication2 {
         
         private BusinessEntityDataTable tableBusinessEntity;
         
-        private global::System.Data.DataRelation relationFK_Person_BusinessEntity_BusinessEntityID;
-        
         private global::System.Data.DataRelation relationFK_Employee_Person_BusinessEntityID;
+        
+        private global::System.Data.DataRelation relationFK_Person_BusinessEntity_BusinessEntityID;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -246,8 +246,8 @@ namespace WindowsFormsApplication2 {
                     this.tableBusinessEntity.InitVars();
                 }
             }
-            this.relationFK_Person_BusinessEntity_BusinessEntityID = this.Relations["FK_Person_BusinessEntity_BusinessEntityID"];
             this.relationFK_Employee_Person_BusinessEntityID = this.Relations["FK_Employee_Person_BusinessEntityID"];
+            this.relationFK_Person_BusinessEntity_BusinessEntityID = this.Relations["FK_Person_BusinessEntity_BusinessEntityID"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -264,14 +264,14 @@ namespace WindowsFormsApplication2 {
             base.Tables.Add(this.tablePerson);
             this.tableBusinessEntity = new BusinessEntityDataTable();
             base.Tables.Add(this.tableBusinessEntity);
-            this.relationFK_Person_BusinessEntity_BusinessEntityID = new global::System.Data.DataRelation("FK_Person_BusinessEntity_BusinessEntityID", new global::System.Data.DataColumn[] {
-                        this.tableBusinessEntity.BusinessEntityIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tablePerson.BusinessEntityIDColumn}, false);
-            this.Relations.Add(this.relationFK_Person_BusinessEntity_BusinessEntityID);
             this.relationFK_Employee_Person_BusinessEntityID = new global::System.Data.DataRelation("FK_Employee_Person_BusinessEntityID", new global::System.Data.DataColumn[] {
                         this.tablePerson.BusinessEntityIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableEmployee.BusinessEntityIDColumn}, false);
             this.Relations.Add(this.relationFK_Employee_Person_BusinessEntityID);
+            this.relationFK_Person_BusinessEntity_BusinessEntityID = new global::System.Data.DataRelation("FK_Person_BusinessEntity_BusinessEntityID", new global::System.Data.DataColumn[] {
+                        this.tableBusinessEntity.BusinessEntityIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tablePerson.BusinessEntityIDColumn}, false);
+            this.Relations.Add(this.relationFK_Person_BusinessEntity_BusinessEntityID);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

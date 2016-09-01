@@ -18,6 +18,7 @@ namespace WindowsFormsApplication2
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
             Application.Run(new Form3());
+            //Application.Run(new Department());
         }
     }
 }

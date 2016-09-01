@@ -50,6 +50,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AdventureWorksDS.xsd</DependentUpon>
     </Compile>
+    <Compile Include="AW_Dept.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AW_Dept.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +73,12 @@
     <Compile Include="Form3.Designer.cs">
       <DependentUpon>Form3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form4.Designer.cs">
+      <DependentUpon>Form4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -78,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form3.resx">
       <DependentUpon>Form3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form4.resx">
+      <DependentUpon>Form4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -98,6 +112,17 @@
     </None>
     <None Include="AdventureWorksDS.xss">
       <DependentUpon>AdventureWorksDS.xsd</DependentUpon>
+    </None>
+    <None Include="AW_Dept.xsc">
+      <DependentUpon>AW_Dept.xsd</DependentUpon>
+    </None>
+    <None Include="AW_Dept.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AW_Dept.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="AW_Dept.xss">
+      <DependentUpon>AW_Dept.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
