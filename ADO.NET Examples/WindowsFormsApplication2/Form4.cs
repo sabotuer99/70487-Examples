@@ -126,7 +126,12 @@ namespace WindowsFormsApplication2
                 cmd.Parameters.AddWithValue("@gname", groupName);
                 cmd.Parameters.AddWithValue("@mdate", modifiedDate);
 
-                Task<int> x = cmd.ExecuteNonQueryAsync();
+                //Task<int> x = cmd.ExecuteNonQueryAsync();
+                AsyncCallback callback = ((result) =>
+                {
+                    Console.Out.WriteLine("Update Finished...");
+                });
+                var x = cmd.BeginExecuteNonQuery(callback, null);
 
                 Console.Out.Write("Waiting on update");
                 for (var i = 0; !x.IsCompleted && i < 1000; i++)
@@ -134,7 +139,7 @@ namespace WindowsFormsApplication2
                     Thread.Sleep(1);
                     Console.Out.Write(".");
                 }
-                await x;
+                //await x; //no "await" with this approach
 
                 SqlCommand select = new SqlCommand(
                     @"SELECT * FROM HumanResources.Department;", conn);
@@ -147,7 +152,7 @@ namespace WindowsFormsApplication2
                 }
                 ds.Tables[0].Load(dr.Result);
 
-                return x.Result;
+                return cmd.EndExecuteNonQuery(x);
             }
         }
 
