@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -98,21 +99,69 @@ namespace WindowsFormsApplication2
             }
         }
 
-        private void Update_Click(object sender, EventArgs e)
+        private void Update_Click(object sender, EventArgs e) {
+
+            Task<int> rowsAffected = Update_Click_Async();
+            Console.Out.WriteLine(rowsAffected.Result);
+        
+        }
+
+        private async Task<int> Update_Click_Async()
         {
+            
             using (var conn = new SqlConnection(connectionString))
             {
-                initDataAdapter(conn);
+                conn.Open();
 
-                var id = Int32.Parse(departmentIDTextBox.Text);
-                var dept = ds.Department.FindByDepartmentID((short)id);
-                dept.Name = nameTextBox.Text;
-                dept.GroupName = groupNameTextBox.Text;
-                dept.ModifiedDate = DateTime.Now;
-                
-                da.Update(ds);
+                var id = (short) Int32.Parse(departmentIDTextBox.Text);
+                var name = nameTextBox.Text;
+                var groupName = groupNameTextBox.Text;
+                var modifiedDate = DateTime.Now;
+                SqlCommand cmd = new SqlCommand(
+                       @"UPDATE HumanResources.Department 
+                         SET Name=@name, GroupName=@gname, ModifiedDate=@mdate
+                         WHERE DepartmentId = @id", conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@gname", groupName);
+                cmd.Parameters.AddWithValue("@mdate", modifiedDate);
+
+                Task<int> x = cmd.ExecuteNonQueryAsync();
+
+                Console.Out.Write("Waiting on update");
+                for (var i = 0; !x.IsCompleted && i < 1000; i++)
+                {
+                    Thread.Sleep(1);
+                    Console.Out.Write(".");
+                }
+                await x;
+
+                SqlCommand select = new SqlCommand(
+                    @"SELECT * FROM HumanResources.Department;", conn);
+                var dr = select.ExecuteReaderAsync();
+                Console.Out.Write("Waiting on data reader");
+                for (var i = 0; !dr.IsCompleted && i < 1000; i++)
+                {
+                    Thread.Sleep(1);
+                    Console.Out.Write(".");
+                }
+                ds.Tables[0].Load(dr.Result);
+
+                return x.Result;
             }
         }
+
+            /*
+            initDataAdapter(conn);
+
+            var id = Int32.Parse(departmentIDTextBox.Text);
+            var dept = ds.Department.FindByDepartmentID((short)id);
+            dept.Name = nameTextBox.Text;
+            dept.GroupName = groupNameTextBox.Text;
+            dept.ModifiedDate = DateTime.Now;
+                
+            da.Update(ds);
+            */
 
         private void Delete_Click(object sender, EventArgs e)
         {

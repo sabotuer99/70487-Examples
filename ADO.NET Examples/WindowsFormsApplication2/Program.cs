@@ -17,8 +17,8 @@ namespace WindowsFormsApplication2
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
-            Application.Run(new Form3());
-            //Application.Run(new Department());
+            //Application.Run(new Form3()); //I couldn't get Create to work on this one...
+            Application.Run(new Department());
         }
     }
 }
