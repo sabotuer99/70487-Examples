@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication2
@@ -19,6 +20,7 @@ namespace WindowsFormsApplication2
         AW_Dept ds = new AW_Dept();
         DataSet ds2 = new DataSet();
         SqlDataAdapter da = new SqlDataAdapter();
+        SqlCommandBuilder cmb = null;
         string connectionString;
 
         public Department()
@@ -50,7 +52,7 @@ namespace WindowsFormsApplication2
             da = new SqlDataAdapter(
                 @"SELECT * FROM HumanResources.Department;", conn);
             da.TableMappings.Add("Table", "Department");
-            var cmb = new SqlCommandBuilder(da);
+            cmb = new SqlCommandBuilder(da);
         }
 
         private void Search_Click(object sender, EventArgs e)
@@ -65,37 +67,56 @@ namespace WindowsFormsApplication2
 
         private void Create_Click(object sender, EventArgs e)
         {
-            using (var conn = new SqlConnection(connectionString))
+            try
             {
-                initDataAdapter(conn);
-
-                var dname = nameTextBox.Text;
-                var dgroup = groupNameTextBox.Text;
-
-                var newDept = ds.Department.NewDepartmentRow();
-                newDept.Name = dname;
-                newDept.GroupName = dgroup;
-                var mdate = DateTime.Now;
-                newDept.ModifiedDate = mdate;
-
-                ds.Department.Rows.Add(newDept);
-                da.Update(ds);
-
-                
-                ds.Tables[0].Rows.Clear();
-                da.Fill(ds);
-                short newid = -1;
-                for (var i = 0; i < ds.Tables[0].Rows.Count; i++)
-                { 
-                    var row = (AW_Dept.DepartmentRow)ds.Tables[0].Rows[i];
-                    if (row.Name == dname &&
-                       row.GroupName == dgroup &&
-                       row.ModifiedDate.ToString() == mdate.ToString()) 
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    using (var conn = new SqlConnection(connectionString))
                     {
-                        newid = row.DepartmentID;
+                        initDataAdapter(conn);
+
+                        var dname = nameTextBox.Text;
+                        var dgroup = groupNameTextBox.Text;
+
+                        var newDept = ds.Department.NewDepartmentRow();
+                        newDept.Name = dname;
+                        newDept.GroupName = dgroup;
+                        var mdate = DateTime.Now;
+                        newDept.ModifiedDate = mdate;
+
+                        ds.Department.Rows.Add(newDept);
+                        da.Update(ds);
+
+
+                        ds.Tables[0].Rows.Clear();
+                        da.Fill(ds);
+
+                        //If an exception is thrown before scope.Complete() is called, 
+                        //any database changes are rolled back.
+                        //throw new Exception("ERMAGERD AN EXCERPTION!!!");
+
+                        scope.Complete();
+
+                        //the rest does not need to the connection or transaction to work...
+                        short newid = -1;
+                        for (var i = 0; i < ds.Tables[0].Rows.Count; i++)
+                        {
+                            var row = (AW_Dept.DepartmentRow)ds.Tables[0].Rows[i];
+                            if (row.Name == dname &&
+                               row.GroupName == dgroup &&
+                               row.ModifiedDate.ToString() == mdate.ToString())
+                            {
+                                newid = row.DepartmentID;
+                            }
+                        }
+                        departmentIDTextBox.Text = newid.ToString();
+                        
                     }
                 }
-                departmentIDTextBox.Text = newid.ToString();
+            }
+            catch (Exception ex) 
+            {
+                Console.Out.WriteLine(ex);
             }
         }
 
@@ -112,6 +133,7 @@ namespace WindowsFormsApplication2
             using (var conn = new SqlConnection(connectionString))
             {
                 conn.Open();
+                SqlTransaction trans = conn.BeginTransaction("SampleTransaction");
 
                 var id = (short) Int32.Parse(departmentIDTextBox.Text);
                 var name = nameTextBox.Text;
@@ -125,34 +147,42 @@ namespace WindowsFormsApplication2
                 cmd.Parameters.AddWithValue("@name", name);
                 cmd.Parameters.AddWithValue("@gname", groupName);
                 cmd.Parameters.AddWithValue("@mdate", modifiedDate);
+                cmd.Transaction = trans;
 
-                //Task<int> x = cmd.ExecuteNonQueryAsync();
-                AsyncCallback callback = ((result) =>
+                try
                 {
-                    Console.Out.WriteLine("Update Finished...");
-                });
-                var x = cmd.BeginExecuteNonQuery(callback, null);
+                    var x = cmd.ExecuteNonQuery();
 
-                Console.Out.Write("Waiting on update");
-                for (var i = 0; !x.IsCompleted && i < 1000; i++)
-                {
-                    Thread.Sleep(1);
-                    Console.Out.Write(".");
+                    trans.Commit();
+
+                    SqlCommand select = new SqlCommand(
+                        @"SELECT * FROM HumanResources.Department;", conn);
+                    //select.Transaction = trans;
+                    var dr = select.ExecuteReader();
+
+                    ds.Tables[0].Load(dr);
+                    return x;
                 }
-                //await x; //no "await" with this approach
-
-                SqlCommand select = new SqlCommand(
-                    @"SELECT * FROM HumanResources.Department;", conn);
-                var dr = select.ExecuteReaderAsync();
-                Console.Out.Write("Waiting on data reader");
-                for (var i = 0; !dr.IsCompleted && i < 1000; i++)
+                catch (Exception ex)
                 {
-                    Thread.Sleep(1);
-                    Console.Out.Write(".");
-                }
-                ds.Tables[0].Load(dr.Result);
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
 
-                return cmd.EndExecuteNonQuery(x);
+                    // Attempt to roll back the transaction.
+                    try
+                    {
+                        trans.Rollback();
+                    }
+                    catch (Exception ex2)
+                    {
+                        // This catch block will handle any errors that may have occurred
+                        // on the server that would cause the rollback to fail, such as
+                        // a closed connection.
+                        Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+                        Console.WriteLine("  Message: {0}", ex2.Message);
+                    }
+                    return 0;
+                }
             }
         }
 
@@ -173,12 +203,18 @@ namespace WindowsFormsApplication2
             using (var conn = new SqlConnection(connectionString))
             {
                 initDataAdapter(conn);
+                conn.Open();
+                cmb.GetDeleteCommand(); //generates the Delete command
+
+                var trans = conn.BeginTransaction("TypedTransaction");
 
                 var id = Int32.Parse(departmentIDTextBox.Text);
                 var dept = ds.Department.FindByDepartmentID((short)id);
                 dept.Delete();
 
+                cmb.GetDeleteCommand().Transaction = trans;
                 da.Update(ds);
+                trans.Commit();
 
                 departmentIDTextBox.Text = "";
                 nameTextBox.Text = "";
