@@ -14,42 +14,142 @@ namespace ConsoleApplication
         static void Main(string[] args)
         {
             Database.SetInitializer(new NullDatabaseInitializer<NinjaContext>());
-            
+
             DeleteAllNinjas();
-            Console.In.Read();
-            Console.Clear();
+            pause();
+
+            InsertNinjaWithEquipment();
+            pause();
+
+            SimpleNinjaGraphQueryEager();
+            pause();
+
+            SimpleNinjaGraphQueryExplicit();
+            pause();
+
+            SimpleNinjaGraphQueryLazy();
+            pause();
 
             InsertNinja();
-            Console.In.Read();
-            Console.Clear();
+            pause();
+
+            ProjectionQuery();
+            pause();
 
             SimpleNinjaQueries();
-            Console.In.Read();
-            Console.Clear();
+            pause();
 
             QueryAndUpdateNinja();
-            Console.In.Read();
-            Console.Clear();
+            pause();
 
             QueryAndUpdateNinjaDisconnected();
-            Console.In.Read();
-            Console.Clear();
+            pause();
 
             DeleteNinja();
-            Console.In.Read();
-            Console.Clear();
+            pause();
 
             DeleteNinjaDisconnected();
-            Console.In.Read();
-            Console.Clear();
+            pause();
 
             DeleteNinjaWithKeyValue();
-            Console.In.Read();
-            Console.Clear();
+            pause();
 
             DeleteNinjaViaStoredProcedure();
+            pause();
+        }
+
+        private static void pause()
+        {
+            Console.In.Read();
             Console.In.Read();
             Console.Clear();
+        }
+
+        private static void ProjectionQuery()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                var ninja = context.Ninjas
+                    .Select(n => new {n.Name, n.DateOfBirth, n.EquipmentOwned})
+                    .ToList();
+            }
+        }
+
+        private static void SimpleNinjaGraphQueryLazy()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                var ninja = context.Ninjas
+                    .FirstOrDefault(n => n.Name.StartsWith("Kacy"));
+
+                Console.Out.WriteLine("Ninja Retrieved");
+
+                Console.WriteLine(
+                    "Ninja Equipment Count: {0}", ninja.EquipmentOwned.Count());
+            }
+        }
+
+        private static void SimpleNinjaGraphQueryExplicit()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                var ninja = context.Ninjas
+                    .FirstOrDefault(n => n.Name.StartsWith("Kacy"));
+
+                Console.Out.WriteLine("Ninja Retrieved");
+
+                context.Entry(ninja).Collection(n => n.EquipmentOwned).Load();
+            }
+        }
+
+        private static void SimpleNinjaGraphQueryEager()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                var ninja = context.Ninjas.Include(n => n.EquipmentOwned)
+                    .FirstOrDefault(n => n.Name.StartsWith("Kacy"));
+            }
+        }
+
+        private static void InsertNinjaWithEquipment()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                var ninja = new Ninja()
+                {
+                    Name = "Kacy Catanzaro",
+                    ServedInOniwaban = false,
+                    DateOfBirth = new DateTime(1990, 1, 14),
+                    ClanId = 1
+                };
+
+                var muscles = new NinjaEquipment()
+                {
+                    Name = "Muscles",
+                    Type = EquipmentType.Tool
+                };
+
+                var spunk = new NinjaEquipment()
+                {
+                    Name = "Spunk",
+                    Type = EquipmentType.Weapon
+                };
+
+                context.Ninjas.Add(ninja);
+                ninja.EquipmentOwned.Add(muscles);
+                ninja.EquipmentOwned.Add(spunk);
+                context.SaveChanges();
+            }
         }
 
         private static void DeleteAllNinjas()
