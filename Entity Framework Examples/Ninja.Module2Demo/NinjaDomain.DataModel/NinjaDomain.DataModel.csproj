@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectedRepository.cs" />
     <Compile Include="Migrations\201609021636520_Initial.cs" />
     <Compile Include="Migrations\201609021636520_Initial.Designer.cs">
       <DependentUpon>201609021636520_Initial.cs</DependentUpon>
@@ -53,6 +54,14 @@
     <Compile Include="Migrations\201609021640263_AddBirthdayToNinja.cs" />
     <Compile Include="Migrations\201609021640263_AddBirthdayToNinja.Designer.cs">
       <DependentUpon>201609021640263_AddBirthdayToNinja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609021917443_AddIModificationHistoryInterface.cs" />
+    <Compile Include="Migrations\201609021917443_AddIModificationHistoryInterface.Designer.cs">
+      <DependentUpon>201609021917443_AddIModificationHistoryInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609021919395_RemoveIsDirtyFromDatabase.cs" />
+    <Compile Include="Migrations\201609021919395_RemoveIsDirtyFromDatabase.Designer.cs">
+      <DependentUpon>201609021919395_RemoveIsDirtyFromDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NinjaContext.cs" />
@@ -74,6 +83,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609021640263_AddBirthdayToNinja.resx">
       <DependentUpon>201609021640263_AddBirthdayToNinja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609021917443_AddIModificationHistoryInterface.resx">
+      <DependentUpon>201609021917443_AddIModificationHistoryInterface.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609021919395_RemoveIsDirtyFromDatabase.resx">
+      <DependentUpon>201609021919395_RemoveIsDirtyFromDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

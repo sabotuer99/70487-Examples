@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaDomain.DataModel", "Ni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication", "ConsoleApplication\ConsoleApplication.csproj", "{0013D5CE-80CF-4FF6-BF21-6A7427071B39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplication", "WpfApplication\WpfApplication.csproj", "{45BB1B99-691A-4927-94FF-A5E19798CF47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0013D5CE-80CF-4FF6-BF21-6A7427071B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0013D5CE-80CF-4FF6-BF21-6A7427071B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0013D5CE-80CF-4FF6-BF21-6A7427071B39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45BB1B99-691A-4927-94FF-A5E19798CF47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45BB1B99-691A-4927-94FF-A5E19798CF47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45BB1B99-691A-4927-94FF-A5E19798CF47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45BB1B99-691A-4927-94FF-A5E19798CF47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
