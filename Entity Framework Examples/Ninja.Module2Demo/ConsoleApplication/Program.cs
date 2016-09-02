@@ -1,5 +1,8 @@
-﻿using System;
+﻿using NinjaDomain.Classes;
+using NinjaDomain.DataModel;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +13,221 @@ namespace ConsoleApplication
     {
         static void Main(string[] args)
         {
+            Database.SetInitializer(new NullDatabaseInitializer<NinjaContext>());
+            
+            DeleteAllNinjas();
+            Console.In.Read();
+            Console.Clear();
+
             InsertNinja();
+            Console.In.Read();
+            Console.Clear();
+
+            SimpleNinjaQueries();
+            Console.In.Read();
+            Console.Clear();
+
+            QueryAndUpdateNinja();
+            Console.In.Read();
+            Console.Clear();
+
+            QueryAndUpdateNinjaDisconnected();
+            Console.In.Read();
+            Console.Clear();
+
+            DeleteNinja();
+            Console.In.Read();
+            Console.Clear();
+
+            DeleteNinjaDisconnected();
+            Console.In.Read();
+            Console.Clear();
+
+            DeleteNinjaWithKeyValue();
+            Console.In.Read();
+            Console.Clear();
+
+            DeleteNinjaViaStoredProcedure();
+            Console.In.Read();
+            Console.Clear();
+        }
+
+        private static void DeleteAllNinjas()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                context.Database.ExecuteSqlCommand("DELETE FROM Ninjas");
+            }
+        }
+
+        private static void DeleteNinjaViaStoredProcedure()
+        {
+            //SETUP
+            int keyval;
+            using (var context = new NinjaContext())
+            {
+                keyval = context.Ninjas.FirstOrDefault().Id;
+            }
+            //END SETUP
+
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                context.Database.ExecuteSqlCommand("exec DeleteNinjaViaId {0}", keyval);
+            }
+
+            /* Script to create the stored procedure...
+             * 
+                SET ANSI_NULLS ON
+                GO
+                SET QUOTED_IDENTIFIER ON
+                GO
+
+                CREATE PROCEDURE DeleteNinjaViaId
+                    @Id int
+                AS
+                BEGIN
+                    SET NOCOUNT ON;
+
+                    DELETE
+                    FROM Ninjas
+                    WHERE Ninjas.Id = @Id
+                END
+                GO
+             *  
+             */
+        }
+
+        private static void DeleteNinjaWithKeyValue()
+        {
+            //SETUP
+            int keyval;
+            using (var context = new NinjaContext())
+            {
+               keyval = context.Ninjas.FirstOrDefault().Id;
+            }
+            //END SETUP
+
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                var ninja = context.Ninjas.Find(keyval);
+                context.Ninjas.Remove(ninja);
+                context.SaveChanges();
+            }
+        }
+
+        private static void DeleteNinja()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                var ninja = context.Ninjas.FirstOrDefault();
+                context.Ninjas.Remove(ninja);
+                context.SaveChanges();
+            }
+        }
+
+        private static void DeleteNinjaDisconnected()
+        {
+            Ninja ninja;
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                ninja = context.Ninjas.FirstOrDefault();
+            }
+
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                context.Entry(ninja).State = EntityState.Deleted; //Attached automatically by Entry()
+                context.SaveChanges();
+            }
+        }
+
+        private static void QueryAndUpdateNinja()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                var ninja = context.Ninjas.FirstOrDefault();
+                ninja.ServedInOniwaban = !ninja.ServedInOniwaban;
+                context.SaveChanges();
+            }
+        }
+
+        private static void QueryAndUpdateNinjaDisconnected()
+        {
+            Ninja ninja;
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                ninja = context.Ninjas.FirstOrDefault();
+            }
+
+            ninja.ServedInOniwaban = !ninja.ServedInOniwaban;
+
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                //context.Ninjas.Attach(ninja);
+                context.Entry(ninja).State = EntityState.Modified; //Attached automatically by Entry()
+                context.SaveChanges();
+            }
+        }
+
+        private static void SimpleNinjaQueries()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                var ninjas = context.Ninjas.Where(n => n.DateOfBirth >= new DateTime(1984, 1, 1)).OrderBy(n => n.Name);
+
+                Console.Out.WriteLine("Query created, not executed yet...");
+
+                foreach (var ninja in ninjas) {
+                    Console.Out.WriteLine(ninja.Name);
+                }
+
+            }
         }
 
         private static void InsertNinja()
         {
-            throw new NotImplementedException();
+            var ninja0 = new Ninja
+            {
+                Name = "JulieSan",
+                ServedInOniwaban = false,
+                DateOfBirth = new DateTime(1980, 1, 1),
+                ClanId = 1
+            };
+            var ninja1 = new Ninja
+            {
+                Name = "SampsonSan",
+                ServedInOniwaban = false,
+                DateOfBirth = new DateTime(2008, 1, 28),
+                ClanId = 1
+            };
+            var ninja2 = new Ninja
+            {
+                Name = "Leonardo",
+                ServedInOniwaban = false,
+                DateOfBirth = new DateTime(1985, 11, 11),
+                ClanId = 1
+            };
+            var ninja3 = new Ninja
+            {
+                Name = "Raphael",
+                ServedInOniwaban = false,
+                DateOfBirth = new DateTime(1985, 11, 5),
+                ClanId = 1
+            };
+            using (var context = new NinjaContext()) {
+                context.Database.Log = Console.WriteLine;
+                context.Ninjas.AddRange(new Ninja[]{ninja0, ninja1, ninja2, ninja3});
+                context.SaveChanges();
+            }
         }
     }
 }
