@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WebAPI</RootNamespace>
     <AssemblyName>WebAPI</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -120,8 +120,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Ninja.DomainClasses\NinjaDomain.Classes.csproj">
-      <Project>{7073f7fe-f900-4bdd-8b10-6bc3d88302d1}</Project>
+    <ProjectReference Include="..\NinjaDomain.Classes\NinjaDomain.Classes.csproj">
+      <Project>{eb9edbd6-d904-4799-88fa-5857b94278ca}</Project>
       <Name>NinjaDomain.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\NinjaDomain.DataModel\NinjaDomain.DataModel.csproj">
