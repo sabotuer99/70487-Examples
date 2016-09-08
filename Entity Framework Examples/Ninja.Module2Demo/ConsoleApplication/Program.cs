@@ -18,6 +18,9 @@ namespace ConsoleApplication
             DeleteAllNinjas();
             pause();
 
+            InsertNinja();
+            pause();
+
             InsertNinjaWithEquipment();
             pause();
 
@@ -30,12 +33,10 @@ namespace ConsoleApplication
             SimpleNinjaGraphQueryLazy();
             pause();
 
-            InsertNinja();
-            pause();
-
             ProjectionQuery();
             pause();
-
+            
+              
             SimpleNinjaQueries();
             pause();
 
@@ -125,12 +126,14 @@ namespace ConsoleApplication
             {
                 context.Database.Log = Console.WriteLine;
 
+                var clan = context.Clans.FirstOrDefault();
+
                 var ninja = new Ninja()
                 {
                     Name = "Kacy Catanzaro",
                     ServedInOniwaban = false,
                     DateOfBirth = new DateTime(1990, 1, 14),
-                    ClanId = 1
+                    Clan = clan
                 };
 
                 var muscles = new NinjaEquipment()
@@ -157,7 +160,7 @@ namespace ConsoleApplication
             using (var context = new NinjaContext())
             {
                 context.Database.Log = Console.WriteLine;
-                context.Database.ExecuteSqlCommand("DELETE FROM Ninjas");
+                context.Database.ExecuteSqlCommand("DELETE FROM Ninjas; DELETE FROM Clans");
             }
         }
 
@@ -282,7 +285,8 @@ namespace ConsoleApplication
             using (var context = new NinjaContext())
             {
                 context.Database.Log = Console.WriteLine;
-                var ninjas = context.Ninjas.Where(n => n.DateOfBirth >= new DateTime(1984, 1, 1)).OrderBy(n => n.Name);
+                var ninjas = context.Ninjas
+                    .Where(n => n.DateOfBirth >= new DateTime(1984, 1, 1));
 
                 Console.Out.WriteLine("Query created, not executed yet...");
 
@@ -295,33 +299,39 @@ namespace ConsoleApplication
 
         private static void InsertNinja()
         {
+            var clan = new Clan
+            {
+                ClanName = "Vermont Ninjas",
+                Id = 1               
+            };
+
             var ninja0 = new Ninja
             {
                 Name = "JulieSan",
                 ServedInOniwaban = false,
                 DateOfBirth = new DateTime(1980, 1, 1),
-                ClanId = 1
+                Clan = clan
             };
             var ninja1 = new Ninja
             {
                 Name = "SampsonSan",
                 ServedInOniwaban = false,
                 DateOfBirth = new DateTime(2008, 1, 28),
-                ClanId = 1
+                Clan = clan
             };
             var ninja2 = new Ninja
             {
                 Name = "Leonardo",
                 ServedInOniwaban = false,
                 DateOfBirth = new DateTime(1985, 11, 11),
-                ClanId = 1
+                Clan = clan
             };
             var ninja3 = new Ninja
             {
                 Name = "Raphael",
                 ServedInOniwaban = false,
                 DateOfBirth = new DateTime(1985, 11, 5),
-                ClanId = 1
+                Clan = clan
             };
             using (var context = new NinjaContext()) {
                 context.Database.Log = Console.WriteLine;
