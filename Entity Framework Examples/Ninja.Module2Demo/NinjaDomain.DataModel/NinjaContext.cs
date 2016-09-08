@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using NinjaDomain.Classes;
 using NinjaDomain.Classes.Interfaces;
 using System;
+using System.Data.Entity.Core.Objects;
 
 namespace NinjaDomain.DataModel
 {

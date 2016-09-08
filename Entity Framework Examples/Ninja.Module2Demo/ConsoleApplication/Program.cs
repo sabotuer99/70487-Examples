@@ -1,8 +1,10 @@
 ﻿using NinjaDomain.Classes;
 using NinjaDomain.DataModel;
+using nob = NinjaDomain.OldStyleContext;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +26,10 @@ namespace ConsoleApplication
             InsertNinjaWithEquipment();
             pause();
 
+            //SimpleNinjaCompiledQuery();
+            CompiledQueryPerformanceTest();
+            pause();
+
             SimpleNinjaGraphQueryEager();
             pause();
 
@@ -35,8 +41,8 @@ namespace ConsoleApplication
 
             ProjectionQuery();
             pause();
-            
-              
+
+
             SimpleNinjaQueries();
             pause();
 
@@ -73,7 +79,7 @@ namespace ConsoleApplication
                 context.Database.Log = Console.WriteLine;
 
                 var ninja = context.Ninjas
-                    .Select(n => new {n.Name, n.DateOfBirth, n.EquipmentOwned})
+                    .Select(n => new { n.Name, n.DateOfBirth, n.EquipmentOwned })
                     .ToList();
             }
         }
@@ -118,6 +124,73 @@ namespace ConsoleApplication
                 var ninja = context.Ninjas.Include(n => n.EquipmentOwned)
                     .FirstOrDefault(n => n.Name.StartsWith("Kacy"));
             }
+        }
+
+        static readonly Func<nob.NinjaObjectContext, DateTime, IQueryable<nob.Ninja>> s_compiledNinjaQuery =
+            CompiledQuery.Compile<nob.NinjaObjectContext, DateTime, IQueryable<nob.Ninja>>(
+                    (ctx, date) => from ninja in ctx.Ninjas
+                                   where ninja.DateOfBirth < date
+                                   select ninja);
+
+        private static void SimpleNinjaCompiledQuery()
+        {
+            using (var context = new nob.NinjaObjectContext())
+            {
+                var oldninjas = s_compiledNinjaQuery.Invoke(context, new DateTime(1982, 1, 1));
+
+                foreach (nob.Ninja ninja in oldninjas)
+                {
+                    Console.Out.WriteLine(ninja.Name);
+                }
+            }
+        }
+
+        private static void CompiledQueryPerformanceTest()
+        {
+            for (var j = 0; j < 5; j++)
+            {
+                using (var context = new nob.NinjaObjectContext())
+                {
+                    var start = DateTime.Now;
+                    for (var i = 0; i < 10000; i++)
+                    {
+                        var result1 = s_compiledNinjaQuery.Invoke(context, new DateTime(1982, 1, 1));
+                    }
+                    double ms = (DateTime.Now - start).TotalMilliseconds;
+                    Console.Out.WriteLine("Compiled query : " + ms.ToString() + "ms");
+                }
+
+                using (var ctx = new nob.NinjaObjectContext())
+                {
+                    var start = DateTime.Now;
+                    var date = new DateTime(1982, 1, 1);
+                    for (var i = 0; i < 10000; i++)
+                    {
+                        var result2 = from ninja in ctx.Ninjas
+                                      where ninja.DateOfBirth < date
+                                      select ninja;
+                    }
+                    double ms = (DateTime.Now - start).TotalMilliseconds;
+                    Console.Out.WriteLine("Non-Compiled query : " + ms.ToString() + "ms");
+                }
+
+                using (var ctx = new NinjaContext())
+                {
+                    var start = DateTime.Now;
+                    var date = new DateTime(1982, 1, 1);
+                    for (var i = 0; i < 10000; i++)
+                    {
+                        var result2 = from ninja in ctx.Ninjas
+                                      where ninja.DateOfBirth < date
+                                      select ninja;
+                    }
+                    double ms = (DateTime.Now - start).TotalMilliseconds;
+                    Console.Out.WriteLine("DbContext : " + ms.ToString() + "ms");
+                }
+
+                Console.Out.WriteLine("#######################");
+            }
+
         }
 
         private static void InsertNinjaWithEquipment()
@@ -208,7 +281,7 @@ namespace ConsoleApplication
             int keyval;
             using (var context = new NinjaContext())
             {
-               keyval = context.Ninjas.FirstOrDefault().Id;
+                keyval = context.Ninjas.FirstOrDefault().Id;
             }
             //END SETUP
 
@@ -290,7 +363,8 @@ namespace ConsoleApplication
 
                 Console.Out.WriteLine("Query created, not executed yet...");
 
-                foreach (var ninja in ninjas) {
+                foreach (var ninja in ninjas)
+                {
                     Console.Out.WriteLine(ninja.Name);
                 }
 
@@ -302,7 +376,7 @@ namespace ConsoleApplication
             var clan = new Clan
             {
                 ClanName = "Vermont Ninjas",
-                Id = 1               
+                Id = 1
             };
 
             var ninja0 = new Ninja
@@ -333,9 +407,10 @@ namespace ConsoleApplication
                 DateOfBirth = new DateTime(1985, 11, 5),
                 Clan = clan
             };
-            using (var context = new NinjaContext()) {
+            using (var context = new NinjaContext())
+            {
                 context.Database.Log = Console.WriteLine;
-                context.Ninjas.AddRange(new Ninja[]{ninja0, ninja1, ninja2, ninja3});
+                context.Ninjas.AddRange(new Ninja[] { ninja0, ninja1, ninja2, ninja3 });
                 context.SaveChanges();
             }
         }

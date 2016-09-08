@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,6 +64,10 @@
     <ProjectReference Include="..\NinjaDomain.DataModel\NinjaDomain.DataModel.csproj">
       <Project>{faeb4003-230d-46b6-9d45-07e2ceb3266c}</Project>
       <Name>NinjaDomain.DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NinjaDomain.OldStyleContext\NinjaDomain.OldStyleContext.csproj">
+      <Project>{1cbbc9aa-d441-448c-82c9-9d6ee343d101}</Project>
+      <Name>NinjaDomain.OldStyleContext</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

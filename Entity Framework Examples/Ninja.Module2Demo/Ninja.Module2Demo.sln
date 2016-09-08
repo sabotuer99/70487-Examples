@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaDomain.Classes", "NinjaDomain.Classes\NinjaDomain.Classes.csproj", "{EB9EDBD6-D904-4799-88FA-5857B94278CA}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCAppRepository", "MVCApp Repository\MVCAppRepository.csproj", "{0404AE1B-573E-4123-BF51-E8D671C2A6F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{6B45C96E-6B98-42A1-B00C-5891CC9C643B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaDomain.OldStyleContext", "NinjaDomain.OldStyleContext\NinjaDomain.OldStyleContext.csproj", "{1CBBC9AA-D441-448C-82C9-9D6EE343D101}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{6B45C96E-6B98-42A1-B00C-5891CC9C643B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B45C96E-6B98-42A1-B00C-5891CC9C643B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B45C96E-6B98-42A1-B00C-5891CC9C643B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CBBC9AA-D441-448C-82C9-9D6EE343D101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CBBC9AA-D441-448C-82C9-9D6EE343D101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CBBC9AA-D441-448C-82C9-9D6EE343D101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CBBC9AA-D441-448C-82C9-9D6EE343D101}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

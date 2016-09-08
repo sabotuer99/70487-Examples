@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NinjaDomain.DataModel.NinjaContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clans">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClanName" Type="nvarchar(max)" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NinjaEquipments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Ninja_Id" Type="int" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ninjas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="ServedInOniwaban" Type="bit" Nullable="false" />
+          <Property Name="ClanId" Type="int" Nullable="false" />
+          <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_NinjaEquipments_dbo_Ninjas_Ninja_Id">
+          <End Role="Ninjas" Type="Self.Ninjas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NinjaEquipments" Type="Self.NinjaEquipments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ninjas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NinjaEquipments">
+              <PropertyRef Name="Ninja_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Ninjas_dbo_Clans_ClanId">
+          <End Role="Clans" Type="Self.Clans" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ninjas" Type="Self.Ninjas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clans">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ninjas">
+              <PropertyRef Name="ClanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NinjaDomainDataModelNinjaContextModelStoreContainer">
+          <EntitySet Name="Clans" EntityType="Self.Clans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NinjaEquipments" EntityType="Self.NinjaEquipments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ninjas" EntityType="Self.Ninjas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_NinjaEquipments_dbo_Ninjas_Ninja_Id" Association="Self.FK_dbo_NinjaEquipments_dbo_Ninjas_Ninja_Id">
+            <End Role="Ninjas" EntitySet="Ninjas" />
+            <End Role="NinjaEquipments" EntitySet="NinjaEquipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Ninjas_dbo_Clans_ClanId" Association="Self.FK_dbo_Ninjas_dbo_Clans_ClanId">
+            <End Role="Clans" EntitySet="Clans" />
+            <End Role="Ninjas" EntitySet="Ninjas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NinjaDomain.DataModel.NinjaContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClanName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Ninjas" Relationship="Self.FK_dbo_Ninjas_dbo_Clans_ClanId" FromRole="Clans" ToRole="Ninjas" />
+        </EntityType>
+        <EntityType Name="NinjaEquipment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Ninja_Id" Type="Int32" Nullable="false" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Ninja" Relationship="Self.FK_dbo_NinjaEquipments_dbo_Ninjas_Ninja_Id" FromRole="NinjaEquipments" ToRole="Ninjas" />
+        </EntityType>
+        <EntityType Name="Ninja">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ServedInOniwaban" Type="Boolean" Nullable="false" />
+          <Property Name="ClanId" Type="Int32" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Clan" Relationship="Self.FK_dbo_Ninjas_dbo_Clans_ClanId" FromRole="Ninjas" ToRole="Clans" />
+          <NavigationProperty Name="NinjaEquipments" Relationship="Self.FK_dbo_NinjaEquipments_dbo_Ninjas_Ninja_Id" FromRole="Ninjas" ToRole="NinjaEquipments" />
+        </EntityType>
+        <Association Name="FK_dbo_Ninjas_dbo_Clans_ClanId">
+          <End Role="Clans" Type="Self.Clan" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ninjas" Type="Self.Ninja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clans">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ninjas">
+              <PropertyRef Name="ClanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_NinjaEquipments_dbo_Ninjas_Ninja_Id">
+          <End Role="Ninjas" Type="Self.Ninja" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NinjaEquipments" Type="Self.NinjaEquipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ninjas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NinjaEquipments">
+              <PropertyRef Name="Ninja_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NinjaObjectContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clans" EntityType="Self.Clan" />
+          <EntitySet Name="NinjaEquipments" EntityType="Self.NinjaEquipment" />
+          <EntitySet Name="Ninjas" EntityType="Self.Ninja" />
+          <AssociationSet Name="FK_dbo_Ninjas_dbo_Clans_ClanId" Association="Self.FK_dbo_Ninjas_dbo_Clans_ClanId">
+            <End Role="Clans" EntitySet="Clans" />
+            <End Role="Ninjas" EntitySet="Ninjas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_NinjaEquipments_dbo_Ninjas_Ninja_Id" Association="Self.FK_dbo_NinjaEquipments_dbo_Ninjas_Ninja_Id">
+            <End Role="Ninjas" EntitySet="Ninjas" />
+            <End Role="NinjaEquipments" EntitySet="NinjaEquipments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NinjaDomainDataModelNinjaContextModelStoreContainer" CdmEntityContainer="NinjaObjectContext">
+          <EntitySetMapping Name="Clans">
+            <EntityTypeMapping TypeName="NinjaDomain.DataModel.NinjaContextModel.Clan">
+              <MappingFragment StoreEntitySet="Clans">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClanName" ColumnName="ClanName" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NinjaEquipments">
+            <EntityTypeMapping TypeName="NinjaDomain.DataModel.NinjaContextModel.NinjaEquipment">
+              <MappingFragment StoreEntitySet="NinjaEquipments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Ninja_Id" ColumnName="Ninja_Id" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ninjas">
+            <EntityTypeMapping TypeName="NinjaDomain.DataModel.NinjaContextModel.Ninja">
+              <MappingFragment StoreEntitySet="Ninjas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ServedInOniwaban" ColumnName="ServedInOniwaban" />
+                <ScalarProperty Name="ClanId" ColumnName="ClanId" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
