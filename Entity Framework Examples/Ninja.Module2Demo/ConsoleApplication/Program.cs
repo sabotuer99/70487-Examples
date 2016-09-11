@@ -8,6 +8,8 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.Entity.Infrastructure;
 
 namespace ConsoleApplication
 {
@@ -24,6 +26,17 @@ namespace ConsoleApplication
             pause();
 
             InsertNinjaWithEquipment();
+            pause();
+
+            Console.Out.WriteLine("##########################################");
+            Console.Out.WriteLine("Begin Raw SQL Query");
+            SimpleNinjaQueryRawSQL();
+            Console.Out.WriteLine("\n\n##########################################");
+            Console.Out.WriteLine("Begin Entity SQL Query using DataReader");
+            SimpleNinjaQueryEntitySQL_Reader();
+            Console.Out.WriteLine("\n\n##########################################");
+            Console.Out.WriteLine("Begin Entity SQL Query using ObjectContext");
+            SimpleNinjaQueryEntitySQL_ObjCtxQuery();
             pause();
 
             //SimpleNinjaCompiledQuery();
@@ -97,6 +110,69 @@ namespace ConsoleApplication
 
                 Console.WriteLine(
                     "Ninja Equipment Count: {0}", ninja.EquipmentOwned.Count());
+            }
+        }
+
+        private static void SimpleNinjaQueryRawSQL()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                var ninjas = context.Ninjas
+                    .SqlQuery("SELECT * FROM dbo.Ninjas WHERE DateOfBirth > {0}", 
+                        new object[]{new DateTime(1984,1,1)}).ToList();
+
+                foreach (Ninja ninja in ninjas)
+                {
+                    Console.Out.WriteLine(ninja.Name + " " + ninja.DateOfBirth);
+                }
+            }
+        }
+
+        private static void SimpleNinjaQueryEntitySQL_Reader()
+        {
+            using (EntityConnection conn = new EntityConnection("name=NinjaObjectContext"))
+            {
+                //context.Database.Log = Console.WriteLine;
+                conn.Open();
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = @"SELECT VALUE n 
+                                    FROM NinjaObjectContext.Ninjas AS n
+                                    WHERE n.DateOfBirth > @dob";
+                cmd.Parameters.AddWithValue("dob", new DateTime(1984, 1, 1));
+
+
+                using (EntityDataReader dr = cmd.ExecuteReader(
+                    System.Data.CommandBehavior.SequentialAccess)) 
+                {
+                    while (dr.Read()) 
+                    {
+                        Console.Out.WriteLine(dr.GetString(1) + " " + dr.GetDateTime(4));
+                    }
+                }
+            }
+        }
+
+        private static void SimpleNinjaQueryEntitySQL_ObjCtxQuery()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                var adapter = (IObjectContextAdapter)context;
+                var objctx = adapter.ObjectContext;
+                var param = new ObjectParameter("dob", new DateTime(1984, 1, 1));
+                ObjectQuery<Ninja> ninjas = objctx.CreateQuery<Ninja>(
+                        @"SELECT VALUE n 
+                          FROM NinjaContext.Ninjas AS n
+                          WHERE n.DateOfBirth > @dob",
+                        new ObjectParameter[] { param });
+
+                foreach (Ninja ninja in ninjas)
+                {
+                    Console.Out.WriteLine(ninja.Name + " " + ninja.DateOfBirth);
+                }
             }
         }
 
