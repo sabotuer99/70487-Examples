@@ -10,6 +10,9 @@ namespace NinjaDomain.Classes
         public Ninja()
         {
             EquipmentOwned = new List<NinjaEquipment>();
+            //DateOfBirth = new DateTime(1977, 1, 1);
+            //DateCreated = new DateTime(1977, 1, 1);
+            //DateModified = new DateTime(1977, 1, 1);
         }
 
         public int Id { get; set; }
