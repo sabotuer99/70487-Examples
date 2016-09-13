@@ -15,6 +15,9 @@ namespace AsyncDemoConsole
         {
             SyncOperations();
             AsyncOperations();
+
+
+
         }
 
         public static void SyncOperations() 

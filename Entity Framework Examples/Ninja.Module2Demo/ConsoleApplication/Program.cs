@@ -28,6 +28,7 @@ namespace ConsoleApplication
             InsertNinjaWithEquipment();
             pause();
 
+
             Console.Out.WriteLine("##########################################");
             Console.Out.WriteLine("Begin Raw SQL Query");
             SimpleNinjaQueryRawSQL();
@@ -199,6 +200,15 @@ namespace ConsoleApplication
 
                 var ninja = context.Ninjas.Include(n => n.EquipmentOwned)
                     .FirstOrDefault(n => n.Name.StartsWith("Kacy"));
+
+                /*  //throw away example code
+                var parameters = new object[1];
+                //add all your parameters in here
+                context.Ninjas.SqlQuery("GetNinjasByX", parameters);
+                context.Database.SqlQuery<Ninja>("GetNinjasByX", parameters);
+                context.Database.SqlQuery(typeof(Ninja), "GetNinjasByX", parameters);
+                */
+
             }
         }
 

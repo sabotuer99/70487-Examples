@@ -18,6 +18,19 @@ namespace NinjaDomain.DataModel
         {
             modelBuilder.Types().
                 Configure(c => c.Ignore("IsDirty"));
+
+            modelBuilder
+                .Entity<Ninja>()
+                .MapToStoredProcedures(s =>
+                    s.Insert(i => i.HasName("InsertNinja")
+                     .Parameter(n => n.Name, "Name")
+                     .Parameter(n => n.ServedInOniwaban, "ServedInOniwaban")
+                     .Parameter(n => n.ClanId, "ClanId")
+                     .Parameter(n => n.DateOfBirth, "DateOfBirth")
+                     .Parameter(n => n.DateModified, "DateModified")
+                     .Parameter(n => n.DateCreated, "DateCreated")
+                ));
+
             base.OnModelCreating(modelBuilder);
         }
 

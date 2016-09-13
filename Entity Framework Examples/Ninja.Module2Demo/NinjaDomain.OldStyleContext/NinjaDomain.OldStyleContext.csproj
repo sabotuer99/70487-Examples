@@ -52,13 +52,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clan.cs">
-      <DependentUpon>NinjaObjectContext.tt</DependentUpon>
+      <DependentUpon>NinjaContextWithSprocs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>NinjaContextWithSprocs.tt</DependentUpon>
     </Compile>
     <Compile Include="Ninja.cs">
-      <DependentUpon>NinjaObjectContext.tt</DependentUpon>
+      <DependentUpon>NinjaContextWithSprocs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NinjaContextWithSprocs.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NinjaContextWithSprocs.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NinjaContextWithSprocs.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NinjaContextWithSprocs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NinjaContextWithSprocs.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NinjaContextWithSprocs.edmx</DependentUpon>
     </Compile>
     <Compile Include="NinjaEquipment.cs">
-      <DependentUpon>NinjaObjectContext.tt</DependentUpon>
+      <DependentUpon>NinjaContextWithSprocs.tt</DependentUpon>
     </Compile>
     <Compile Include="NinjaObjectContext.Context.cs">
       <AutoGen>True</AutoGen>
@@ -85,6 +103,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <EntityDeploy Include="NinjaContextWithSprocs.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NinjaContextWithSprocs.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="NinjaContextWithSprocs.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NinjaContextWithSprocs.edmx</DependentUpon>
+      <LastGenOutput>NinjaContextWithSprocs.Context.cs</LastGenOutput>
+    </None>
+    <None Include="NinjaContextWithSprocs.edmx.diagram">
+      <DependentUpon>NinjaContextWithSprocs.edmx</DependentUpon>
+    </None>
+    <None Include="NinjaContextWithSprocs.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NinjaContextWithSprocs.edmx</DependentUpon>
+      <LastGenOutput>NinjaContextWithSprocs.cs</LastGenOutput>
+    </None>
     <None Include="NinjaObjectContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>NinjaObjectContext.edmx</DependentUpon>

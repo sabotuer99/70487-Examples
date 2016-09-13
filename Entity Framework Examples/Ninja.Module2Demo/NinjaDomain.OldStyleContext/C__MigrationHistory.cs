@@ -12,15 +12,11 @@ namespace NinjaDomain.OldStyleContext
     using System;
     using System.Collections.Generic;
     
-    public partial class NinjaEquipment
+    public partial class C__MigrationHistory
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Type { get; set; }
-        public int Ninja_Id { get; set; }
-        public System.DateTime DateModified { get; set; }
-        public System.DateTime DateCreated { get; set; }
-    
-        public virtual Ninja Ninja { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }
