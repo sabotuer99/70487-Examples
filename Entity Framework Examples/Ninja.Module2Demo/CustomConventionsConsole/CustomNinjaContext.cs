@@ -19,9 +19,13 @@ namespace CustomConventionsConsole
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Conventions.Add(new EquipmentRenamingConvention());
-            modelBuilder.Conventions.AddBefore<PluralizingTableNameConvention>(new PluralZTableNameConvention());
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            //modelBuilder.Conventions.Add(new EquipmentRenamingConvention());
+            //modelBuilder.Conventions.AddBefore<PluralizingTableNameConvention>
+            //    (new PluralZTableNameConvention());
+            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Properties().Where(p => p.Name == "ServedInOniwaban")
+                .Configure(p => p.HasColumnName("IsBadass"));
+            modelBuilder.Types().Configure(t => t.ToTable(t.ClrType.Name + "z"));
         }
     }
 
