@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B801DB30-688A-49B6-ADCA-011AE2CAD360}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CustomConventionsConsole</RootNamespace>
+    <AssemblyName>CustomConventionsConsole</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomNinjaContext.cs" />
+    <Compile Include="Migrations\201704240406376_initial-migration.cs" />
+    <Compile Include="Migrations\201704240406376_initial-migration.Designer.cs">
+      <DependentUpon>201704240406376_initial-migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704240425522_custom1.cs" />
+    <Compile Include="Migrations\201704240425522_custom1.Designer.cs">
+      <DependentUpon>201704240425522_custom1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704240428386_custom2.cs" />
+    <Compile Include="Migrations\201704240428386_custom2.Designer.cs">
+      <DependentUpon>201704240428386_custom2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704240432490_custom3.cs" />
+    <Compile Include="Migrations\201704240432490_custom3.Designer.cs">
+      <DependentUpon>201704240432490_custom3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704240439386_custom4.cs" />
+    <Compile Include="Migrations\201704240439386_custom4.Designer.cs">
+      <DependentUpon>201704240439386_custom4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704240445535_custom5.cs" />
+    <Compile Include="Migrations\201704240445535_custom5.Designer.cs">
+      <DependentUpon>201704240445535_custom5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704240515103_custom6.cs" />
+    <Compile Include="Migrations\201704240515103_custom6.Designer.cs">
+      <DependentUpon>201704240515103_custom6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NinjaDomain.Classes\NinjaDomain.Classes.csproj">
+      <Project>{eb9edbd6-d904-4799-88fa-5857b94278ca}</Project>
+      <Name>NinjaDomain.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NinjaDomain.DataModel\NinjaDomain.DataModel.csproj">
+      <Project>{faeb4003-230d-46b6-9d45-07e2ceb3266c}</Project>
+      <Name>NinjaDomain.DataModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704240406376_initial-migration.resx">
+      <DependentUpon>201704240406376_initial-migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704240425522_custom1.resx">
+      <DependentUpon>201704240425522_custom1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704240428386_custom2.resx">
+      <DependentUpon>201704240428386_custom2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704240432490_custom3.resx">
+      <DependentUpon>201704240432490_custom3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704240439386_custom4.resx">
+      <DependentUpon>201704240439386_custom4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704240445535_custom5.resx">
+      <DependentUpon>201704240445535_custom5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704240515103_custom6.resx">
+      <DependentUpon>201704240515103_custom6.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
