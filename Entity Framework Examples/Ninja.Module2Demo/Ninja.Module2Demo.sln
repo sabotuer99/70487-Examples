@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomConventionsConsole", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProviderConsoleApp", "DataProviderConsoleApp\DataProviderConsoleApp.csproj", "{EE50295F-6A23-4CB6-B293-3780D93CFF41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgramatticConfig", "ProgramatticConfig\ProgramatticConfig.csproj", "{8CE2907A-2E44-492B-AA5A-C3BE1E14CD0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{EE50295F-6A23-4CB6-B293-3780D93CFF41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE50295F-6A23-4CB6-B293-3780D93CFF41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE50295F-6A23-4CB6-B293-3780D93CFF41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CE2907A-2E44-492B-AA5A-C3BE1E14CD0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CE2907A-2E44-492B-AA5A-C3BE1E14CD0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CE2907A-2E44-492B-AA5A-C3BE1E14CD0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CE2907A-2E44-492B-AA5A-C3BE1E14CD0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
