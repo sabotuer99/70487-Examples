@@ -12,19 +12,18 @@ namespace AdventureWorks.DataModel
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Objects;
     
-    public partial class AdventureWorks2012Entities : ObjectContext
+    public partial class AdventureWorks2012Entities : DbContext
     {
         public AdventureWorks2012Entities()
             : base("name=AdventureWorks2012Entities")
         {
         }
     
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    throw new UnintentionalCodeFirstException();
-        //}
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
     
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
