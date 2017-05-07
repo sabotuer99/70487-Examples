@@ -41,8 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Booleans.cs" />
+    <Compile Include="ConsoleHelpers.cs" />
+    <Compile Include="Filters.cs" />
+    <Compile Include="InitSeq.cs" />
+    <Compile Include="Numeric.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Selection.cs" />
+    <Compile Include="SetOps.cs" />
+    <Compile Include="Sorting.cs" />
+    <Compile Include="SuperHero.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
