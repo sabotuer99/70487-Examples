@@ -44,6 +44,7 @@
     <Compile Include="Booleans.cs" />
     <Compile Include="ConsoleHelpers.cs" />
     <Compile Include="Filters.cs" />
+    <Compile Include="HeroType.cs" />
     <Compile Include="InitSeq.cs" />
     <Compile Include="Numeric.cs" />
     <Compile Include="Person.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="SetOps.cs" />
     <Compile Include="Sorting.cs" />
     <Compile Include="SuperHero.cs" />
+    <Compile Include="Transform.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

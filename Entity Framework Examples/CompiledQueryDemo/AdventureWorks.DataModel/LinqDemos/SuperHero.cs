@@ -14,7 +14,14 @@ namespace LinqDemos
             HeroName = heroName;
         }
 
+        public SuperHero(string heroName, int heroTypeId, string ordinaryName, DateTime birthday):
+            this(heroName, ordinaryName, birthday)
+        {
+            HeroTypeId = heroTypeId;
+        }
+
         public string HeroName { get; set; }
+        public int HeroTypeId { get; set; }
 
         public override string ToString()
         {

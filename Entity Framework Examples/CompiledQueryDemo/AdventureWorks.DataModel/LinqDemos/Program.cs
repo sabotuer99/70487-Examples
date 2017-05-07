@@ -16,7 +16,9 @@ namespace LinqDemos
             //InitSeq();
             //Booleans();
             //Selection();
-            Filters();
+            //Filters();
+            //Transform();
+            JoinGroup();
 
             Console.Read();
         }
