@@ -46,6 +46,7 @@
     <Compile Include="Filters.cs" />
     <Compile Include="HeroType.cs" />
     <Compile Include="InitSeq.cs" />
+    <Compile Include="JoinGroup.cs" />
     <Compile Include="Numeric.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
