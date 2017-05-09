@@ -18,7 +18,8 @@ namespace LinqDemos
             //Selection();
             //Filters();
             //Transform();
-            JoinGroup();
+            //JoinGroup();
+            TestSequenceEqualEnumeration();
 
             Console.Read();
         }
