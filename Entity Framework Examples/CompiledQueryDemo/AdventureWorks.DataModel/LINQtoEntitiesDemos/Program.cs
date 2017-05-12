@@ -12,7 +12,8 @@ namespace LINQtoEntitiesDemos
         {
             //CommandTextTest();
             //ToStringTests();
-            LoggerTest();
+            //LoggerTest();
+            Boundaries();
 
             Console.WriteLine("Press ENTER to quit...");
             Console.Read();

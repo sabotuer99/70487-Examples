@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqDemos", "LinqDemos\Linq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQtoEntitiesDemos", "LINQtoEntitiesDemos\LINQtoEntitiesDemos.csproj", "{C101F831-3018-49D7-A813-428CAF64AB2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryVsEnumeration", "QueryVsEnumeration\QueryVsEnumeration.csproj", "{C52353A9-43E7-4A59-8438-E9FD80FDA348}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{C101F831-3018-49D7-A813-428CAF64AB2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C101F831-3018-49D7-A813-428CAF64AB2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C101F831-3018-49D7-A813-428CAF64AB2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C52353A9-43E7-4A59-8438-E9FD80FDA348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C52353A9-43E7-4A59-8438-E9FD80FDA348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C52353A9-43E7-4A59-8438-E9FD80FDA348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C52353A9-43E7-4A59-8438-E9FD80FDA348}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
