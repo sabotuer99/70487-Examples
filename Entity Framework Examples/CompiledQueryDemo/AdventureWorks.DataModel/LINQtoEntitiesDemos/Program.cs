@@ -13,7 +13,10 @@ namespace LINQtoEntitiesDemos
             //CommandTextTest();
             //ToStringTests();
             //LoggerTest();
-            Boundaries();
+            //Boundaries();
+            //AsyncDemo();
+            //AsyncDemo2();
+            AsyncDemo3();
 
             Console.WriteLine("Press ENTER to quit...");
             Console.Read();
