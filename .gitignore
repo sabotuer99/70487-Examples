@@ -187,3 +187,4 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+Entity Framework Examples/InheritanceModels/WebApplication1/packages/*
