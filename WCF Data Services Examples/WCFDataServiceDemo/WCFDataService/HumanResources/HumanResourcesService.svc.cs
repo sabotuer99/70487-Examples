@@ -11,21 +11,22 @@ using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Web;
+using WCFDataService.HumanResources;
 
 namespace WCFDataService
 {
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
-    public class WcfDataService : DataService<AdventureWorks2012Entities>
+    public class HumanResourcesService : DataService<HumanResourcesRepository>
     {
         // This method is called only once to initialize service-wide policies.
         public static void InitializeService(DataServiceConfiguration config)
         {
-            // TODO: set rules to indicate which entity sets and service operations are visible, 
-            // updatable, etc.
+            // TODO: set rules to indicate which entity sets and service operations are visible, updatable, etc.
             // Examples:
-            config.SetEntitySetAccessRule("*", EntitySetRights.AllRead);
+            config.SetEntitySetAccessRule("Departments", EntitySetRights.AllRead);
+            config.SetEntitySetAccessRule("Employees", EntitySetRights.AllRead);
             config.SetServiceOperationAccessRule("*", ServiceOperationRights.All);
-            config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
+            //config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
         }
     }
 }

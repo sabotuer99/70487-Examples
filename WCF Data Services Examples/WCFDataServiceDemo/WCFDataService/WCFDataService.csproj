@@ -95,6 +95,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Example\ExampleDataService.svc" />
+    <Content Include="HumanResources\HumanResourcesService.svc" />
     <Content Include="packages.config" />
     <EntityDeploy Include="DataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -206,6 +208,14 @@
     <Compile Include="ErrorLog.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Example\CustomerDataServicesClient.cs" />
+    <Compile Include="Example\ExampleDataService.svc.cs">
+      <DependentUpon>ExampleDataService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="HumanResources\HumanResourcesService.svc.cs">
+      <DependentUpon>HumanResourcesService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="HumanResources\HumanResourcesRepository.cs" />
     <Compile Include="Illustration.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -358,6 +368,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
