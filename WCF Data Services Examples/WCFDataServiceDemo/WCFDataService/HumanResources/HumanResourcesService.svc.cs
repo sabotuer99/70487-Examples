@@ -25,8 +25,23 @@ namespace WCFDataService
             // Examples:
             config.SetEntitySetAccessRule("Departments", EntitySetRights.AllRead);
             config.SetEntitySetAccessRule("Employees", EntitySetRights.AllRead);
-            config.SetServiceOperationAccessRule("*", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("DepartmentsWithLongNames", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("DepartmentWithLongestName", ServiceOperationRights.All);
             //config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
         }
+
+        [WebGet]
+        public IQueryable<Department> DepartmentsWithLongNames(int length)
+        {
+            return CurrentDataSource.Departments.Where(d => d.Name.Length >= length).AsQueryable();
+        }
+
+        [WebGet]
+        public Department DepartmentWithLongestName()
+        {
+            //return CurrentDataSource.Departments.OrderByDescending(d => d.Name.Length).Take(1);
+            return CurrentDataSource.Departments.OrderByDescending(d => d.Name.Length).First();
+        }
+
     }
 }

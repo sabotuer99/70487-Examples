@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Services;
 using System.Data.Services.Common;
 using System.Linq;
+using System.ServiceModel.Web;
 using System.Web;
 
 namespace WCFDataService.HumanResources
@@ -33,6 +35,12 @@ namespace WCFDataService.HumanResources
                 return _ctx.Employees.AsQueryable();
             }
         }
+
+        //[WebGet]
+        //public IQueryable<Department> DepartmentsWithLongNames()
+        //{
+        //    return _ctx.Departments.Where(d => d.Name.Length > 10).AsQueryable();
+        //}
     }
 }
 
@@ -44,5 +52,14 @@ namespace WCFDataService
 
     [DataServiceKey("BusinessEntityID")]
     [IgnoreProperties("EmployeeDepartmentHistories", "Person", "EmployeePayHistories", "JobCandidates", "PurchaseOrderHeaders", "SalesPerson")]
-    public partial class Employee {}
+    public partial class Employee {
+
+        public Department currentDepartment
+        {
+            get
+            {
+                return EmployeeDepartmentHistories.ToList().First().Department;
+            }
+        }
+    }
 }
