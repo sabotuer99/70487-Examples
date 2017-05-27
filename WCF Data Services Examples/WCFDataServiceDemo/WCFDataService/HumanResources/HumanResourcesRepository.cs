@@ -54,12 +54,12 @@ namespace WCFDataService
     [IgnoreProperties("EmployeeDepartmentHistories", "Person", "EmployeePayHistories", "JobCandidates", "PurchaseOrderHeaders", "SalesPerson")]
     public partial class Employee {
 
-        public Department currentDepartment
-        {
-            get
-            {
-                return EmployeeDepartmentHistories.ToList().First().Department;
-            }
-        }
+        //public Department currentDepartment
+        //{
+        //    get
+        //    {
+        //        return EmployeeDepartmentHistories.ToList().First().Department;
+        //    }
+        //}
     }
 }
