@@ -10,13 +10,17 @@ namespace XML_Examples
     {
         static void Main(string[] args)
         {
-            XmlReaderSmallerFile();
+            //XmlReaderSmallerFile();
             //XmlReaderMoveToContent();
             //XmlReaderPerformanceTest();
             //AttemptToLoadHugeXmlIntoMemory();
 
+            XmlWriterExample();
+
             Console.WriteLine("Press ENTER to exit program...");
             Console.Read();
         }
+
+
     }
 }
