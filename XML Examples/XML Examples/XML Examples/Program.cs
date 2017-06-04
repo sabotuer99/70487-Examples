@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace XML_Examples
 {
-    class Program
+    partial class Program
     {
         static void Main(string[] args)
         {
+            XmlReaderSmallerFile();
+            //XmlReaderMoveToContent();
+            //XmlReaderPerformanceTest();
+            //AttemptToLoadHugeXmlIntoMemory();
+
+            Console.WriteLine("Press ENTER to exit program...");
+            Console.Read();
         }
     }
 }
