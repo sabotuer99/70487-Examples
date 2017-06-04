@@ -61,5 +61,28 @@ namespace WCFDataService
             return CurrentDataSource.Employees.OrderBy(e => Guid.NewGuid()).First();
         }
 
+
+        private static Guid secret = Guid.NewGuid();
+        [WebGet]
+        public String GetMagicKey(String secretPassword)
+        {
+            if ("Abracadabra".Equals(secretPassword))
+            {
+                return secret.ToString();
+            } else
+            {
+                return "pffffft...shaaa right!";
+            }
+        }
+
+        // Define a query interceptor for the Employee entity set.
+        [QueryInterceptor("Employees")]
+        public Expression<Func<Employee, bool>> YOUSHALLNOTPASS()
+        {
+            Debug.WriteLine("YOU SHALL NOT PASS!!! Well maybe...");
+            string token = HttpContext.Current.Request.Headers.Get("token");
+            string s = secret.ToString();
+            return entity => s.Equals(token);
+        }
     }
 }
