@@ -15,7 +15,10 @@ namespace XML_Examples
             //XmlReaderPerformanceTest();
             //AttemptToLoadHugeXmlIntoMemory();
 
-            XmlWriterExample();
+            //XmlWriterExample();
+
+            //LoadSmallerXmlFileIntoMemory();
+            SaveChangesToXmlDocumentObject();
 
             Console.WriteLine("Press ENTER to exit program...");
             Console.Read();
