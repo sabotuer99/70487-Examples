@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace XML_Examples
 {
@@ -18,8 +20,11 @@ namespace XML_Examples
 
             var declaration = dom.Declaration;
 
+            
             var ids = dom.Descendants().SelectMany(x => x.Attributes())
                 .Where(x => x.Name.LocalName.Equals("id"));
+            var xids = ((IEnumerable)dom.XPathEvaluate("descendant::*/@id"))
+                .Cast<XAttribute>();
 
             //remove all the comments
             dom.DescendantNodes().Where(x => x.NodeType == XmlNodeType.Comment).Remove();     
