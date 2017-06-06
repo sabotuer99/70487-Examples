@@ -18,7 +18,9 @@ namespace XML_Examples
             //XmlWriterExample();
 
             //LoadSmallerXmlFileIntoMemory();
-            SaveChangesToXmlDocumentObject();
+            //SaveChangesToXmlDocumentObject();
+
+            XDocumentSample();
 
             Console.WriteLine("Press ENTER to exit program...");
             Console.Read();
