@@ -20,7 +20,6 @@ namespace XML_Examples
 
             var declaration = dom.Declaration;
 
-            
             var ids = dom.Descendants().SelectMany(x => x.Attributes())
                 .Where(x => x.Name.LocalName.Equals("id"));
             var xids = ((IEnumerable)dom.XPathEvaluate("descendant::*/@id"))
