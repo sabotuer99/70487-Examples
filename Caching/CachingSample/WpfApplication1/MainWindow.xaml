@@ -1,0 +1,21 @@
+﻿<Window x:Class="WpfApplication1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <ListView x:Name="listBox" 
+                 HorizontalAlignment="Left" 
+                 Height="223" 
+                 Margin="28,67,0,0" 
+                 VerticalAlignment="Top" 
+                 Width="434" 
+                 ItemsSource="{Binding listSource}"/>
+        <Button x:Name="button" Content="Get Count From Cache" HorizontalAlignment="Left" Margin="28,23,0,0" VerticalAlignment="Top" Width="153" Click="button_Click"/>
+        <Button x:Name="button1" Content="Update Cache" HorizontalAlignment="Left" Margin="202,23,0,0" VerticalAlignment="Top" Width="142" Click="button1_Click"/>
+
+    </Grid>
+</Window>

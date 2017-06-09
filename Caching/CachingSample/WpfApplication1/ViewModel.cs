@@ -1,28 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.Caching;
-using System.Data.SqlClient;
-using System.Data;
-using System.Configuration;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace CachingSample
+namespace WpfApplication1
 {
-    class Program
+    public class ViewModel
     {
         static ObjectCache cache = MemoryCache.Default;
-
-        static void Main(string[] args)
+        private ObservableCollection<string> _listSource = new ObservableCollection<string>();
+        public ObservableCollection<string> listSource
         {
-            UpdateCache();
-
-            Console.WriteLine("Waiting for caching changes");
-            Console.Read();
+            get
+            {
+                return _listSource;
+            }
+            set
+            {
+                _listSource = value;
+            }
         }
 
-        static void UpdateCache()
+
+        public ViewModel()
+        {
+            //UpdateCache();
+        }
+
+        public void UpdateCache()
         {
 
             var policy = new CacheItemPolicy();
@@ -37,13 +57,13 @@ namespace CachingSample
             {
 
                 using (SqlCommand command =
-                    new SqlCommand("SELECT PersonType FROM Person.Person WHERE PersonType = 'EM'",
+                    new SqlCommand("SELECT PersonType FROM Person.Person WHERE PersonType = 'EM'", 
                     conn))
                 {
                     SqlDependency sqlDependency = new SqlDependency();
                     sqlDependency.AddCommandDependency(command);
 
-                    sqlDependency.OnChange += (s, x) => UpdateCache();
+                    sqlDependency.OnChange += (s,x) => UpdateCache();
 
                     ChangeMonitor sqlMonitor = new SqlChangeMonitor(sqlDependency);
 
@@ -54,15 +74,29 @@ namespace CachingSample
                     policy.ChangeMonitors.Add(sqlMonitor);
                     cache.Add("employee_count", empCount, policy);
 
-                    Console.WriteLine(string.Format("Updated Employee count: {0}", empCount));
+                    UpdateList(empCount);
 
                 }
             }
         }
 
-        static int GetCurrentEmployeeCount()
+        public void UpdateList(int empCount)
         {
-            var connectionString = 
+                App.Current.Dispatcher.Invoke((Action)delegate // <--- HERE
+                {
+                    listSource.Add(
+                        string.Format("Updated Employee count: {0}", empCount));
+                });
+        }
+
+        private void SqlDependency_OnChange(object sender, SqlNotificationEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        int GetCurrentEmployeeCount()
+        {
+            var connectionString =
                 ConfigurationManager.ConnectionStrings["Default"]
                 .ConnectionString;
             var conn = new SqlConnection(connectionString);
@@ -75,8 +109,8 @@ namespace CachingSample
             {
                 conn.Open();
             }
-                
-            var dr = (int) cmd.ExecuteScalar();
+
+            var dr = (int)cmd.ExecuteScalar();
 
             conn.Close();
 
