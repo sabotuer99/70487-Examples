@@ -60,8 +60,7 @@ namespace WpfApplication1
                     new SqlCommand("SELECT PersonType FROM Person.Person WHERE PersonType = 'EM'", 
                     conn))
                 {
-                    SqlDependency sqlDependency = new SqlDependency();
-                    sqlDependency.AddCommandDependency(command);
+                    SqlDependency sqlDependency = new SqlDependency(command);
 
                     sqlDependency.OnChange += (s,x) => UpdateCache();
 

@@ -27,6 +27,8 @@ namespace CachingSample
 
             var policy = new CacheItemPolicy();
 
+            policy.RemovedCallback = (s) => UpdateCache();
+
             var connectionString =
                 ConfigurationManager.ConnectionStrings["Default"]
                 .ConnectionString;
@@ -43,7 +45,7 @@ namespace CachingSample
                     SqlDependency sqlDependency = new SqlDependency();
                     sqlDependency.AddCommandDependency(command);
 
-                    sqlDependency.OnChange += (s, x) => UpdateCache();
+                    //sqlDependency.OnChange += (s, x) => UpdateCache();
 
                     ChangeMonitor sqlMonitor = new SqlChangeMonitor(sqlDependency);
 
