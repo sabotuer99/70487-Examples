@@ -46,6 +46,7 @@ namespace WpfApplication1
         {
 
             var policy = new CacheItemPolicy();
+            policy.RemovedCallback = (s) => UpdateCache();
 
             var connectionString =
                 ConfigurationManager.ConnectionStrings["Default"]
@@ -61,8 +62,9 @@ namespace WpfApplication1
                     conn))
                 {
                     SqlDependency sqlDependency = new SqlDependency(command);
+                    //sqlDependency.AddCommandDependency();
 
-                    sqlDependency.OnChange += (s,x) => UpdateCache();
+                    //sqlDependency.OnChange += (s,x) => UpdateCache();
 
                     ChangeMonitor sqlMonitor = new SqlChangeMonitor(sqlDependency);
 

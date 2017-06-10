@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachingSample", "CachingSam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplication1", "WpfApplication1\WpfApplication1.csproj", "{BDD0F5BF-8F19-4836-B716-06C64091AD50}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheDependencyDemo", "CacheDependencyDemo\CacheDependencyDemo.csproj", "{89C9EA91-7445-40E7-9DB1-FEC91FE6BD01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BDD0F5BF-8F19-4836-B716-06C64091AD50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDD0F5BF-8F19-4836-B716-06C64091AD50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDD0F5BF-8F19-4836-B716-06C64091AD50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89C9EA91-7445-40E7-9DB1-FEC91FE6BD01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89C9EA91-7445-40E7-9DB1-FEC91FE6BD01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89C9EA91-7445-40E7-9DB1-FEC91FE6BD01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89C9EA91-7445-40E7-9DB1-FEC91FE6BD01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
