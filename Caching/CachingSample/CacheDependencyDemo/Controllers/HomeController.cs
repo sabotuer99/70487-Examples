@@ -21,7 +21,13 @@ namespace CacheDependencyDemo.Controllers
                 UpdateCache();
             }
 
-            ViewBag.cached = cache["employee_count"];
+            if (cache["customer_count"] == null)
+            {
+                UpdateCacheSimple();
+            }
+
+            ViewBag.employees = cache["employee_count"];
+            ViewBag.customers = cache["customer_count"];
             ViewBag.requested = "Requested at : " + DateTime.Now.ToLongTimeString();
 
             return View();
@@ -43,6 +49,16 @@ namespace CacheDependencyDemo.Controllers
 
         private int GetCurrentEmployeeCount()
         {
+            return GetPersonCount("EM");
+        }
+
+        private int GetCurrentCustomerCount()
+        {
+            return GetPersonCount("SC");
+        }
+
+        private int GetPersonCount(string personType)
+        {
             var connectionString =
                 ConfigurationManager.ConnectionStrings["AdventureWorks"]
                 .ConnectionString;
@@ -51,7 +67,8 @@ namespace CacheDependencyDemo.Controllers
             var cmd = new SqlCommand();
             cmd.Connection = conn;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT COUNT(*) FROM Person.Person WHERE PersonType = 'EM'";
+            cmd.CommandText = "SELECT COUNT(*) FROM Person.Person WHERE PersonType = @personType";
+            cmd.Parameters.AddWithValue("@personType", personType);
             if (conn.State == ConnectionState.Closed)
             {
                 conn.Open();
@@ -82,7 +99,8 @@ namespace CacheDependencyDemo.Controllers
 
                     string key = "employee_count";
                     string value = "Count: " + empCount + ", as of " + DateTime.Now.ToLongTimeString();
-                    SqlCacheDependency dep = new SqlCacheDependency("AdventureWorks", "Person");
+                    SqlCacheDependency dep = new SqlCacheDependency(command);
+
                     DateTime exp = DateTime.Now.AddMinutes(5);
                     conn.Open();
                     command.ExecuteScalar();
@@ -95,9 +113,35 @@ namespace CacheDependencyDemo.Controllers
             }
         }
 
+        private void UpdateCacheSimple()
+        {
+            var connectionString =
+                ConfigurationManager.ConnectionStrings["AdventureWorks"]
+                .ConnectionString;
+
+            var custCount = GetCurrentCustomerCount();
+
+            string key = "customer_count";
+            string value = "Count: " + custCount + ", as of " + DateTime.Now.ToLongTimeString();
+            SqlCacheDependency dep = new SqlCacheDependency("AdventureWorks", "Person");
+            DateTime exp = DateTime.Now.AddMinutes(5);
+
+            HttpContext.Cache
+                .Add(key, value, dep, exp,
+                Cache.NoSlidingExpiration,
+                CacheItemPriority.Default, CallBackSimple);
+        }
+
+
         private void CallBack(string key, object value, CacheItemRemovedReason reason)
         {
             UpdateCache();
+        }
+
+        private void CallBackSimple(string key, object value, CacheItemRemovedReason reason)
+        {
+
+            UpdateCacheSimple();
         }
     }
 }
