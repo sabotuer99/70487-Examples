@@ -53,7 +53,8 @@ namespace AzureStorageDemo
 
             // Peek the queue
             CloudQueueMessage peekedMessage = queue.PeekMessage();
-            Console.WriteLine("Top of queue before new message: " + (peekedMessage == null ? "" : peekedMessage.AsString));
+            Console.WriteLine("Top of queue before new message: " + 
+                (peekedMessage == null ? "" : peekedMessage.AsString));
 
             // Create a message and add it to the queue.
             CloudQueueMessage message = new CloudQueueMessage("Created picture metadata:\n" + 
@@ -92,7 +93,8 @@ namespace AzureStorageDemo
             }
 
             Console.WriteLine("\nWrote metadata entity into " + table.Name + " table.");
-            TableQuery<PictureEntity> query = new TableQuery<PictureEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, picture.PartitionKey));
+            TableQuery<PictureEntity> query = new TableQuery<PictureEntity>()
+                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, picture.PartitionKey));
 
 
             Console.WriteLine("Entries for this picture: " + table.ExecuteQuery(query).Count());
