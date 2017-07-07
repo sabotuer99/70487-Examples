@@ -15,7 +15,9 @@ namespace ConsoleTransactions
             string connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
             using (var conn = new SqlConnection(connectionString))
             {
+                conn.Open();
                 var tx = new CommittableTransaction();
+                conn.EnlistTransaction(tx);
                 Transaction.Current = tx;
                 try
                 {
@@ -26,7 +28,7 @@ namespace ConsoleTransactions
 
                     tx.Commit();
                 }
-                catch
+                catch(Exception ex)
                 {
                     tx.Rollback();
                 }
