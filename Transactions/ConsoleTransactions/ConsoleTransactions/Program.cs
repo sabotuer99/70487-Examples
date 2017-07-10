@@ -16,11 +16,15 @@ namespace ConsoleTransactions
             using (var conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                var tx = new CommittableTransaction();
+
+                var txOptions = new TransactionOptions();
+                txOptions.IsolationLevel = IsolationLevel.ReadCommitted;
+                var tx = new CommittableTransaction(txOptions);
                 conn.EnlistTransaction(tx);
-                Transaction.Current = tx;
+
                 try
                 {
+                    
                     SqlCommand cmd = new SqlCommand(
                             @"SELECT COUNT(*) FROM Person.Person WHERE PersonType = 'EM'", conn);
 
@@ -31,6 +35,24 @@ namespace ConsoleTransactions
                 catch(Exception ex)
                 {
                     tx.Rollback();
+                }
+                tx.Dispose(); //dispose CommitableTransaction to avoid an exception
+
+                var sqlTx = conn.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                try
+                {
+
+                    SqlCommand cmd = new SqlCommand(
+                            @"SELECT COUNT(*) FROM Person.Person WHERE PersonType = 'EM'", conn);
+                    cmd.Transaction = sqlTx;  //transaction must be attached to command in this case
+
+                    var count = (int)cmd.ExecuteScalar();
+
+                    sqlTx.Commit();
+                }
+                catch (Exception ex)
+                {
+                    sqlTx.Rollback();
                 }
             }
         }
