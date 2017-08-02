@@ -18,9 +18,10 @@ namespace PetService
             service.AddServiceEndpoint(typeof(ICatService), new WSHttpBinding(), "http://localhost:8081/pets/wsCat");
 
             // Enable metadata exchange.  
-            //ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-            //smb.HttpGetEnabled = true;
-            //service.Description.Behaviors.Add(smb);
+            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+            smb.HttpGetEnabled = true;
+            smb.HttpGetUrl = new Uri("http://localhost:8081/pets/mex");
+            service.Description.Behaviors.Add(smb);
 
             service.Open();
 
