@@ -1,9 +1,12 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
+using System.ServiceModel;
 using System.Xml.Serialization;
+using System.Net.Security;
 
 namespace PetService
 {
-    [DataContract]
+    [MessageContract(WrapperName = "CuteKitty")]
     public class Kitten
     {
         public Kitten(string name, string color)
@@ -12,12 +15,26 @@ namespace PetService
             this.color = color;
         }
 
-        [DataMember]
+        [MessageHeader]
+        string id = Guid.NewGuid().ToString();
+
+        [MessageBodyMember]
         string name;
-        [DataMember]
+        [MessageBodyMember]
         string color;
     }
 
+    [Serializable]
+    public class SKitten {
+        public SKitten(string name, string color)
+        {
+            this.name = name;
+            this.color = color;
+        }
+        
+        string name;
+        string color;
+    }
     
     public class XKitten
     {
