@@ -12,6 +12,7 @@ namespace PetService
     {
         static void Main(string[] args)
         {
+
             var service = new ServiceHost(typeof(CatService));
             var dogservice = new ServiceHost(typeof(DogService));
 
@@ -38,7 +39,7 @@ namespace PetService
             Console.ReadLine();
 
             service.Close();
-
+            dogservice.Close();
 
         }
     }

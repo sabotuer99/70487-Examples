@@ -22,6 +22,11 @@ namespace PetService
         string name;
         [MessageBodyMember]
         string color;
+
+        public override string ToString()
+        {
+            return "[Kitten] " + name + " | " + color;
+        }
     }
 
     [Serializable]

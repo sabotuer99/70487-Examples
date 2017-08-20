@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a4f3fb9e-d181-4f45-add6-1344623e9aaf" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ArrayList" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8081/pets/mex" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="mex.xsd" MetadataType="Schema" ID="b790d983-4005-4ea7-bcab-38e54a5d69b6" SourceId="1" SourceUrl="http://localhost:8081/pets/mex?xsd=xsd2" />
+    <MetadataFile FileName="mex1.xsd" MetadataType="Schema" ID="62ac7cd1-dc58-4c17-9984-b171f359e476" SourceId="1" SourceUrl="http://localhost:8081/pets/mex?xsd=xsd3" />
+    <MetadataFile FileName="mex2.xsd" MetadataType="Schema" ID="857a9ecf-be4c-4c1c-883f-4056459c9ba1" SourceId="1" SourceUrl="http://localhost:8081/pets/mex?xsd=xsd1" />
+    <MetadataFile FileName="mex3.xsd" MetadataType="Schema" ID="400ac7c8-60ed-4456-be7b-3cffe402cb8f" SourceId="1" SourceUrl="http://localhost:8081/pets/mex?xsd=xsd0" />
+    <MetadataFile FileName="CatService.wsdl" MetadataType="Wsdl" ID="e27d19e9-3ef3-44b8-a9be-fcae01fa3991" SourceId="1" SourceUrl="http://localhost:8081/pets/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

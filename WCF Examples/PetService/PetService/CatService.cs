@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PetService
@@ -33,9 +34,18 @@ namespace PetService
         [OperationContract]
         [FaultContract(typeof(KittyPoop))]
         void throwCustom();
+
+        [OperationContract]
+        Task<Kitten> taskKitten();
+
+        [OperationContract]
+        Kitten syncKitten();
     }
 
-    [ServiceBehavior(IncludeExceptionDetailInFaults = false)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = false, 
+                     InstanceContextMode = InstanceContextMode.PerSession,
+                     UseSynchronizationContext = true,
+                     ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class CatService : ICatService
     {
         public Kitten haveKitten()
@@ -73,6 +83,46 @@ namespace PetService
         {
             var ex = new KittyPoop("stanky!", "small");
             throw new FaultException<KittyPoop>(ex, "Kitty pooped on the carpet... ");
+        }
+
+        readonly ThreadLocal<Random> random =
+            new ThreadLocal<Random>(() => new Random(GetSeed()));
+
+        int Rand(int min, int max)
+        {
+            return random.Value.Next(min, max);
+        }
+
+        static int GetSeed()
+        {
+            return Environment.TickCount * Thread.CurrentThread.ManagedThreadId;
+        }
+
+        public async Task<Kitten> taskKitten()
+        {
+            return await Task.Factory.StartNew(() => {
+                int interval = 0;
+                interval = Rand(200, 2000);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Sleeping for " + interval + "ms on thread" +
+                    Thread.CurrentThread.ManagedThreadId);
+                Thread.Sleep(interval);
+                return new Kitten("AsyncKitty (" + Thread.CurrentThread.ManagedThreadId + ")", 
+                    "so lazy, slept for " + interval + "ms");
+            }, TaskCreationOptions.LongRunning);
+        }
+
+        public Kitten syncKitten()
+        {
+            int interval = 0;
+            interval = Rand(200, 2000);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Sleeping for " + interval + "ms on thread" + 
+                Thread.CurrentThread.ManagedThreadId);
+            Thread.Sleep(interval);
+            
+            return new Kitten("SyncKitty (" + Thread.CurrentThread.ManagedThreadId + ")", 
+                "so lazy, slept for " + interval + "ms and blocked!");
         }
     }
 
