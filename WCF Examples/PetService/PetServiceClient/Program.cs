@@ -12,7 +12,7 @@ namespace PetServiceClient
     {
         static void Main(string[] args)
         {
-            var client = new CatServiceClient.CatServiceClient("NetTcpBinding_ICatService");
+            var client = new CatServiceClient.CatServiceClient("TCPEndpoint");
             string color = "";
             string name = "";
             client.taskKitten(out color, out name);

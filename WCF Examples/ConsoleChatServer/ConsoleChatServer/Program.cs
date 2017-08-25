@@ -9,7 +9,8 @@ namespace ConsoleChatServer
     {
         static void Main(string[] args)
         {
-            using (ServiceHost host = new ServiceHost(typeof(ChatManagerService), new Uri("http://localhost:8080/chatmgr")))
+            //using (ServiceHost host = new ServiceHost(typeof(ChatManagerService), new Uri("http://localhost:8080/chatmgr")))
+            using (ServiceHost host = new ServiceHost(typeof(ChatManagerService)))
             {
                 host.Open();
                 PrintServiceDescription(host);
