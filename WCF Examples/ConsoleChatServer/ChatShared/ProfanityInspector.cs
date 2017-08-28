@@ -19,16 +19,23 @@ namespace ChatShared
     {
         public object AfterReceiveRequest(ref Message request, IClientChannel channel, InstanceContext instanceContext)
         {
-            var replacements = new Dictionary<string, string>();
-            replacements.Add("fuck", "floob");
-            replacements.Add("god", "glob");
-            replacements.Add("ass", "butt");
-            replacements.Add("fart", "poot");
-            replacements.Add("bitch", "dingus");
-            replacements.Add("shit", "poo");
+            if (channel.LocalAddress.ToString().Contains("duplex"))
+            {
+                var replacements = new Dictionary<string, string>();
+                replacements.Add("fuck", "floob");
+                replacements.Add("god", "glob");
+                replacements.Add("ass", "butt");
+                replacements.Add("fart", "poot");
+                replacements.Add("bitch", "dingus");
+                replacements.Add("shit", "poo");
 
-            request = ChangeString(request, replacements);
-            Console.WriteLine("Inspector Called...");
+                request = ChangeString(request, replacements);
+                Console.WriteLine("Inspector Called...");
+            } else
+            {
+                Console.WriteLine("Not a chat message, skip inspection...");
+            }
+            
 
             //no need for correlationState, so return null
             return null;

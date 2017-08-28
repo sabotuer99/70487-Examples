@@ -21,10 +21,10 @@ namespace PetService
             dogservice.AddServiceEndpoint(typeof(DogService), new BasicHttpBinding(), "http://localhost:8081/pets/dog");
 
             // Enable metadata exchange.  
-            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-            smb.HttpGetEnabled = true;
-            smb.HttpGetUrl = new Uri("http://localhost:8081/pets/mex");
-            service.Description.Behaviors.Add(smb);
+            //ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+            //smb.HttpGetEnabled = true;
+            //smb.HttpGetUrl = new Uri("http://localhost:8081/pets/mex");
+            //service.Description.Behaviors.Add(smb);
 
             ServiceMetadataBehavior smb1 = new ServiceMetadataBehavior();
             smb1.HttpGetEnabled = true;

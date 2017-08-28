@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleChatClient", "Consol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatShared", "ChatShared\ChatShared.csproj", "{DA32E77D-E6DE-4448-9963-16F493AE73FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleChatServerProgConfig", "ConsoleChatServerProgConfig\ConsoleChatServerProgConfig.csproj", "{5D69042C-FAFA-4209-B070-A42EEF775057}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DA32E77D-E6DE-4448-9963-16F493AE73FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA32E77D-E6DE-4448-9963-16F493AE73FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA32E77D-E6DE-4448-9963-16F493AE73FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D69042C-FAFA-4209-B070-A42EEF775057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D69042C-FAFA-4209-B070-A42EEF775057}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D69042C-FAFA-4209-B070-A42EEF775057}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D69042C-FAFA-4209-B070-A42EEF775057}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
