@@ -92,11 +92,26 @@ namespace ChatShared
         }
     }
 
-    public class ProfanityInterceptorBehavior : IServiceBehavior
+    public class ProfanityInterceptorBehavior : IServiceBehavior, IEndpointBehavior
     {
+        public void AddBindingParameters(ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
+        {
+
+        }
+
         public void AddBindingParameters(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase, Collection<ServiceEndpoint> endpoints, BindingParameterCollection bindingParameters)
         {
             
+        }
+
+        public void ApplyClientBehavior(ServiceEndpoint endpoint, ClientRuntime clientRuntime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+        {
+            endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new ProfanityInspector());
         }
 
         //https://docs.microsoft.com/en-us/dotnet/framework/wcf/extending/how-to-inspect-and-modify-messages-on-the-service
@@ -109,6 +124,11 @@ namespace ChatShared
                     epDisp.DispatchRuntime.MessageInspectors.Add(new ProfanityInspector());
                 }
             }
+        }
+
+        public void Validate(ServiceEndpoint endpoint)
+        {
+
         }
 
         public void Validate(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)

@@ -25,13 +25,14 @@ namespace ConsoleChatServerProgConfig
                 ProfanityInterceptorBehavior pib = new ProfanityInterceptorBehavior();
 
                 host.Description.Behaviors.Add(smb);
-                host.Description.Behaviors.Add(pib);
+                //host.Description.Behaviors.Add(pib);
 
                 //Manually create the service endpoint, and add to host collection
                 Binding binding = new WSDualHttpBinding();
                 EndpointAddress address = new EndpointAddress(host.BaseAddresses[0] + "/duplex");
                 ContractDescription description = ContractDescription.GetContract(typeof(IChatManager));
                 ServiceEndpoint endpoint = new ServiceEndpoint(description, binding, address);
+                endpoint.EndpointBehaviors.Add(pib);
                 host.AddServiceEndpoint(endpoint);
 
                 //Add the metadata endpoint directly
