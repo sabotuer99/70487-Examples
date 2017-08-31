@@ -16,36 +16,29 @@ namespace RoutingService
     {
         static void Main(string[] args)
         {
-            using (ServiceHost host = new ServiceHost(typeof(System.ServiceModel.Routing.RoutingService)))
+            using (ServiceHost host = new ServiceHost(typeof(System.ServiceModel.Routing.RoutingService),
+                new Uri("http://localhost:14552/router")))
             {
-                //ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-                //smb.HttpGetEnabled = true;
-                //smb.HttpGetUrl = new Uri(host.BaseAddresses[0] + "/mex");
-                //host.Description.Behaviors.Add(smb);
+                ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+                smb.HttpGetEnabled = true;
+                smb.HttpGetUrl = new Uri(host.BaseAddresses[0] + "/mex");
+                host.Description.Behaviors.Add(smb);
 
-                //var routingConfig = new RoutingConfiguration();
-                //var filter = new MatchAllMessageFilter();
-                //var endpoints = new List<ServiceEndpoint>();
-                //endpoints.Add(getEchoClient(15560));
-                //endpoints.Add(getEchoClient(33344));
-                //endpoints.Add(getEchoClient(22455));
-                //routingConfig.FilterTable.Add(filter, endpoints, 2);
+                var routingConfig = new RoutingConfiguration();
+                var filter = new MatchAllMessageFilter();
+                var endpoints = new List<ServiceEndpoint>();
+                endpoints.Add(getEchoClient(15560));
+                endpoints.Add(getEchoClient(33344));
+                endpoints.Add(getEchoClient(22455));
+                routingConfig.FilterTable.Add(filter, endpoints, 2);
 
-
-
-                //var failoverFilter = new MatchAllMessageFilter();
-                //var failover = new List<ServiceEndpoint>();
-                //failover.Add(getEchoClient(22455));
-                //routingConfig.FilterTable.Add(failoverFilter, failover, 1);
+                RoutingBehavior routingBehavior = new RoutingBehavior(routingConfig);
 
 
-                //RoutingBehavior routingBehavior = new RoutingBehavior(routingConfig);
+                host.Description.Behaviors.Add(routingBehavior);
 
 
-                //host.Description.Behaviors.Add(routingBehavior);
-
-
-                //host.AddServiceEndpoint(typeof(IRequestReplyRouter), new BasicHttpBinding(), "");
+                host.AddServiceEndpoint(typeof(IRequestReplyRouter), new BasicHttpBinding(), "");
 
 
                 host.Open();
@@ -57,6 +50,10 @@ namespace RoutingService
         private static ServiceEndpoint getEchoClient(int port)
         {
             Binding binding = new BasicHttpBinding();
+            binding.ReceiveTimeout = TimeSpan.FromMilliseconds(100);
+            binding.SendTimeout    = TimeSpan.FromMilliseconds(100);
+            binding.CloseTimeout   = TimeSpan.FromMilliseconds(100);
+            binding.OpenTimeout    = TimeSpan.FromMilliseconds(100);
             EndpointAddress address = new EndpointAddress("http://localhost:" + port + "/print");
             ContractDescription description = ContractDescription.GetContract(typeof(IPrintService));
             return new ServiceEndpoint(description, binding, address);
