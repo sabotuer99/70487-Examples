@@ -31,7 +31,9 @@ namespace PrintService15560
                                         "");
 
                 //Make host discoverable with built in behavior, and add endpoint
-                host.Description.Behaviors.Add(new ServiceDiscoveryBehavior());
+                var sdb = new ServiceDiscoveryBehavior();
+                sdb.AnnouncementEndpoints.Add(new UdpAnnouncementEndpoint());
+                host.Description.Behaviors.Add(sdb);
                 host.AddServiceEndpoint(new UdpDiscoveryEndpoint());
 
                 host.Open();

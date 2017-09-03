@@ -42,6 +42,27 @@ namespace RoutingService
 
                 host.Open();
                 PrintServiceDescription(host);
+
+                // Create an AnnouncementService instance  
+                AnnouncementService announcementService = new AnnouncementService();
+
+                // Subscribe the announcement events  
+                announcementService.OnlineAnnouncementReceived += (s,e) => {
+                    Console.WriteLine("New service online, updating endpoints...");
+                    UpdateEndpoints(host);
+                };
+                announcementService.OfflineAnnouncementReceived += (s, e) => {
+                    Console.WriteLine("Existing service offline, updating endpoints...");
+                    UpdateEndpoints(host);
+                };
+
+                ServiceHost announcementServiceHost = new ServiceHost(announcementService);
+                // Listen for the announcements sent over UDP multicast  
+                announcementServiceHost.AddServiceEndpoint(new UdpAnnouncementEndpoint());
+                announcementServiceHost.Open();
+                Console.WriteLine("\n");
+                PrintServiceDescription(announcementServiceHost);
+
                 Console.ReadKey();
             }
         }
