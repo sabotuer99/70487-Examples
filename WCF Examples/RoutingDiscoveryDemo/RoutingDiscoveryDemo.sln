@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutingClient", "RoutingCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoServiceRandom", "EchoServiceRandom\EchoServiceRandom.csproj", "{ADDC156A-A03B-416F-94F6-48F7FAC66445}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelFactoryClientDemo", "ChannelFactoryClientDemo\ChannelFactoryClientDemo.csproj", "{CE1C6262-FF49-4652-893E-46BBEAC27819}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{ADDC156A-A03B-416F-94F6-48F7FAC66445}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADDC156A-A03B-416F-94F6-48F7FAC66445}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADDC156A-A03B-416F-94F6-48F7FAC66445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE1C6262-FF49-4652-893E-46BBEAC27819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE1C6262-FF49-4652-893E-46BBEAC27819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE1C6262-FF49-4652-893E-46BBEAC27819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE1C6262-FF49-4652-893E-46BBEAC27819}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
