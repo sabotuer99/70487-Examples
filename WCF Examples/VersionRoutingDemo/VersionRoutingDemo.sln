@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientVersion2", "ClientVer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionRoutingService", "VersionRoutingService\VersionRoutingService.csproj", "{3807E28C-DE69-43A9-9900-ACD5BF07C6FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceVersion3", "ServiceVersion3\ServiceVersion3.csproj", "{2150D681-A438-4CF4-9142-9EB89D7ACD8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{3807E28C-DE69-43A9-9900-ACD5BF07C6FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3807E28C-DE69-43A9-9900-ACD5BF07C6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3807E28C-DE69-43A9-9900-ACD5BF07C6FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2150D681-A438-4CF4-9142-9EB89D7ACD8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2150D681-A438-4CF4-9142-9EB89D7ACD8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2150D681-A438-4CF4-9142-9EB89D7ACD8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2150D681-A438-4CF4-9142-9EB89D7ACD8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

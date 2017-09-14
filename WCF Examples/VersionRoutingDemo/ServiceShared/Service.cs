@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ServiceShared
 {
-    public class Service : IService1, IService2
+    public class Service : IService1, IService2, IService3
     {
         string endpoint = OperationContext.Current.Channel.LocalAddress.Uri.ToString();
 
