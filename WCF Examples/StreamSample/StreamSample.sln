@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamingService", "StreamingService\StreamingService.csproj", "{BD0FBBF5-119F-4CD8-89F6-FEADDBE1AEB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamingShared", "StreamingShared\StreamingShared.csproj", "{FD8E7FC3-7788-4539-A930-3DF6BD698A45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamingClient", "StreamingClient\StreamingClient.csproj", "{C8495AF8-4116-49C0-9F2B-B6063BC21117}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD0FBBF5-119F-4CD8-89F6-FEADDBE1AEB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD0FBBF5-119F-4CD8-89F6-FEADDBE1AEB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD0FBBF5-119F-4CD8-89F6-FEADDBE1AEB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD0FBBF5-119F-4CD8-89F6-FEADDBE1AEB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD8E7FC3-7788-4539-A930-3DF6BD698A45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD8E7FC3-7788-4539-A930-3DF6BD698A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD8E7FC3-7788-4539-A930-3DF6BD698A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD8E7FC3-7788-4539-A930-3DF6BD698A45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8495AF8-4116-49C0-9F2B-B6063BC21117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8495AF8-4116-49C0-9F2B-B6063BC21117}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8495AF8-4116-49C0-9F2B-B6063BC21117}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8495AF8-4116-49C0-9F2B-B6063BC21117}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
