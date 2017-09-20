@@ -19,12 +19,12 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:10050/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="https://troy-pc:10050/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="2ab26f43-9035-4fdf-b31a-297fa62c8844" SourceId="1" SourceUrl="http://localhost:10050/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="c2466395-1bbf-4a0e-addb-45cb44fd244c" SourceId="1" SourceUrl="http://localhost:10050/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="a6728ef1-0d7e-4f1d-aacb-0245e2ea625c" SourceId="1" SourceUrl="http://localhost:10050/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="d24dcb92-0a0e-45bd-8230-6a1ad94a4c61" SourceId="1" SourceUrl="https://troy-pc:10050/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="175ffbd6-901e-4862-8a87-aee796ca5bb4" SourceId="1" SourceUrl="https://troy-pc:10050/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="0a169fc8-6fc7-4b8d-b4f2-72f20b25c96b" SourceId="1" SourceUrl="https://troy-pc:10050/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -16,11 +16,11 @@ namespace ConsoleService
             using (ServiceHost host = new ServiceHost(typeof(Service)))
             {
                 ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-                smb.HttpGetEnabled = true;
+                smb.HttpsGetEnabled = true;
                 host.Description.Behaviors.Add(smb);
 
                 host.AddServiceEndpoint(typeof(IMetadataExchange),
-                                        MetadataExchangeBindings.CreateMexHttpBinding(),
+                                        MetadataExchangeBindings.CreateMexHttpsBinding(),
                                         "/mex");
 
                 host.Open();
