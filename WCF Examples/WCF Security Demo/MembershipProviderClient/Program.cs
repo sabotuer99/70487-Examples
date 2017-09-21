@@ -12,8 +12,12 @@ namespace MembershipProviderClient
         {
             using (var client = new EchoService.ServiceClient())
             {
-                client.ClientCredentials.UserName.UserName = "wcfuser";
-                client.ClientCredentials.UserName.Password = "blah";
+                Console.WriteLine("Enter Username: ");
+                var username = Console.ReadLine();
+                Console.WriteLine("Enter Password: ");
+                var password = Console.ReadLine();
+                client.ClientCredentials.UserName.UserName = username;
+                client.ClientCredentials.UserName.Password = password;
 
                 Console.WriteLine(client.Echo("A message from the client"));
                 Console.ReadLine();
