@@ -10,7 +10,7 @@ namespace ConcurrentServices
     [ServiceContract(CallbackContract = typeof(ICallback))]
     public interface IService
     {
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         void Process(int id);
     }
 }

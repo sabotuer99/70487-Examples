@@ -20,29 +20,6 @@ namespace ConcurrentClient
         {
             Console.WriteLine("                      Press 'Enter' to start.");
             Console.ReadLine();
-
-
-            string[] serviceNames = { "WSDualHttpBinding_IService","WSDualHttpBinding_IService1",
-                    "WSDualHttpBinding_IService2","WSDualHttpBinding_IService3",
-                    "WSDualHttpBinding_IService4","WSDualHttpBinding_IService5" };
-
-            char[] messageBuffer = NewBuffer();
-            int[] offsets = { 3, 15, 29, 41, 55, 67 };
-            for (int i = 0; i < 6; i++)
-            {
-                string endpoint = serviceNames[i];
-                int offset = offsets[i];
-                IService client = getClient(messageBuffer, endpoint);
-                for(int j = 0; j < 10; j++)
-                {
-                    int id = offset + j;
-                    Task.Run(() => client.Process(id));
-                    messageBuffer[id] = CALL_INITIATED;
-                    //Console.WriteLine("Started: " + id);
-                }
-            }
-            
-
             Console.WriteLine("                  Press 'Enter' again at any time to exit...");
             Console.WriteLine("################################################################################");
             Console.WriteLine("#         PerCall                  PerSession                 Singleton        #");
@@ -50,10 +27,11 @@ namespace ConcurrentClient
             Console.WriteLine("#    Multi       Single        Multi       Single        Multi       Single    #");
             Console.WriteLine("#  ##########  ##########    ##########  ##########    ##########  ##########  #");
             Console.WriteLine("#  0123456789  0123456789    0123456789  0123456789    0123456789  0123456789  #");
-            ProcessMessageBuffer(messageBuffer);
 
-            Task.Run(() => {
-                for(int i = 0; i < 50; i++)
+            messageBuffer = NewBuffer();
+            Task.Run(() =>
+            {
+                for (int i = 0; i < 50; i++)
                 {
                     ProcessMessageBuffer(messageBuffer);
                     Thread.Sleep(1000);
@@ -61,7 +39,30 @@ namespace ConcurrentClient
                 Console.WriteLine("################################################################################");
             });
 
+            RunServices(messageBuffer);
+
             Console.ReadLine();
+        }
+
+        private static void RunServices(char[] messageBuffer)
+        {
+            string[] serviceNames = { "WSDualHttpBinding_IService","WSDualHttpBinding_IService1",
+                    "WSDualHttpBinding_IService2","WSDualHttpBinding_IService3",
+                    "WSDualHttpBinding_IService4","WSDualHttpBinding_IService5" };
+            int[] offsets = { 3, 15, 29, 41, 55, 67 };
+            for (int i = 0; i < 6; i++)
+            {
+                string endpoint = serviceNames[i];
+                int offset = offsets[i];
+                IService client = getClient(messageBuffer, endpoint);
+                for (int j = 0; j < 10; j++)
+                {
+                    int id = offset + j;
+                    Task.Run(() => client.Process(id));
+                    messageBuffer[id] = CALL_INITIATED;
+                    //Console.WriteLine("Started: " + id);
+                }
+            }
         }
 
         private static char[] NewBuffer()
@@ -117,23 +118,16 @@ namespace ConcurrentClient
 
         static IService getClient(char[] messageBuffer, string serviceName)
         {
-            ICallback localService = new Callback(messageBuffer);
+            ICallback localService = new Callback();
             var dcf = new DuplexChannelFactory<IService>(localService, serviceName);
             return dcf.CreateChannel();
         }
 
-        [ServiceBehavior]
+        private static char[] messageBuffer;
+
+        [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
         class Callback : ICallback
         {
-            private char[] messageBuffer;
-            
-
-            public Callback(char[] messageBuffer)
-            {
-                this.messageBuffer = messageBuffer;
-            }
-
-
             public void NotifyBegin(int id)
             {
                 messageBuffer[id] = PROCESSING_STARTED;

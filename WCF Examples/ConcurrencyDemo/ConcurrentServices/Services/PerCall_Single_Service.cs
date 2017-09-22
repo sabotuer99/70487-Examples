@@ -3,7 +3,7 @@
 namespace ConcurrentServices.Services
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall,
-                     ConcurrencyMode = ConcurrencyMode.Single)]
+                     ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public class PerCall_Single_Service : BaseService
     {
     }
