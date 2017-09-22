@@ -3,9 +3,9 @@
 namespace ConcurrentServices.Services
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall,
-                     ConcurrencyMode = ConcurrencyMode.Single,
+                     ConcurrencyMode = ConcurrencyMode.Reentrant,
                      UseSynchronizationContext = true)]
-    public class PerCall_Single_Service : BaseService
+    public class PerCall_Reentrant_Service : BaseService
     {
     }
 }

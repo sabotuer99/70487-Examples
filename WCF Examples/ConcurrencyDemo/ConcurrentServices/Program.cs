@@ -14,14 +14,17 @@ namespace ConcurrentServices
         static void Main(string[] args)
         {
             using (ServiceHost pcm = new ServiceHost(typeof(PerCall_Multi_Service)),
-                               pcs = new ServiceHost(typeof(PerCall_Single_Service)), 
+                               pcs = new ServiceHost(typeof(PerCall_Single_Service)),
+                               pcr = new ServiceHost(typeof(PerCall_Reentrant_Service)),
                                psm = new ServiceHost(typeof(PerSession_Multi_Service)),
                                pss = new ServiceHost(typeof(PerSession_Single_Service)),
+                               psr = new ServiceHost(typeof(PerSession_Reentrant_Service)),
                                sm = new ServiceHost(typeof(Singleton_Multi_Service)),
+                               sr = new ServiceHost(typeof(Singleton_Reentrant_Service)),
                                ss = new ServiceHost(typeof(Singleton_Single_Service)))
             {
 
-                ServiceHost[] services = { pcm, pcs, psm, pss, sm, ss };
+                ServiceHost[] services = { pcm, pcs, psm, pss, sm, ss, sr, psr, pcr };
 
                 foreach(var service in services)
                 {
@@ -45,7 +48,7 @@ namespace ConcurrentServices
 
             Console.WriteLine("Instance Mode: {0}", host.Description.Behaviors.OfType<ServiceBehaviorAttribute>().FirstOrDefault().InstanceContextMode);
             Console.WriteLine("Concurrency Mode: {0}", host.Description.Behaviors.OfType<ServiceBehaviorAttribute>().FirstOrDefault().ConcurrencyMode);
-            Console.WriteLine("\n\n");
+            Console.WriteLine("---------------------------------------------------------------------------------------");
         }
     }
 }

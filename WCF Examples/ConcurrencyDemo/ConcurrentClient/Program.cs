@@ -23,10 +23,10 @@ namespace ConcurrentClient
             Console.WriteLine("                  Press 'Enter' again at any time to exit...");
             Console.WriteLine("################################################################################");
             Console.WriteLine("#         PerCall                  PerSession                 Singleton        #");
-            Console.WriteLine("#  ##########  ##########    ##########  ##########    ##########  ##########  #");
-            Console.WriteLine("#    Multi       Single        Multi       Single        Multi       Single    #");
-            Console.WriteLine("#  ##########  ##########    ##########  ##########    ##########  ##########  #");
-            Console.WriteLine("#  0123456789  0123456789    0123456789  0123456789    0123456789  0123456789  #");
+            Console.WriteLine("#  ######  ######  ######    ######  ######  ######    ######  ######  ######  #");
+            Console.WriteLine("#  Multi   Single  Reentr    Multi   Single  Reentr    Multi   Single  Reentr  #");
+            Console.WriteLine("#  ######  ######  ######    ######  ######  ######    ######  ######  ######  #");
+            Console.WriteLine("#  012345  012345  012345    012345  012345  012345    012345  012345  012345  #");
 
             messageBuffer = NewBuffer();
             Task.Run(() =>
@@ -46,16 +46,16 @@ namespace ConcurrentClient
 
         private static void RunServices(char[] messageBuffer)
         {
-            string[] serviceNames = { "WSDualHttpBinding_IService","WSDualHttpBinding_IService1",
-                    "WSDualHttpBinding_IService2","WSDualHttpBinding_IService3",
-                    "WSDualHttpBinding_IService4","WSDualHttpBinding_IService5" };
-            int[] offsets = { 3, 15, 29, 41, 55, 67 };
-            for (int i = 0; i < 6; i++)
+            string[] serviceNames = { "WSDualHttpBinding_IService","WSDualHttpBinding_IService1","NetTcpBinding_IService",
+                                      "WSDualHttpBinding_IService2","WSDualHttpBinding_IService3","NetTcpBinding_IService1",
+                                      "WSDualHttpBinding_IService4","WSDualHttpBinding_IService5","NetTcpBinding_IService2" };
+            int[] offsets = { 3, 11, 19, 29, 37, 45, 55, 63, 71 };
+            for (int i = 0; i < 9; i++)
             {
                 string endpoint = serviceNames[i];
                 int offset = offsets[i];
                 IService client = getClient(messageBuffer, endpoint);
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < 6; j++)
                 {
                     int id = offset + j;
                     Task.Run(() => client.Process(id));
@@ -125,7 +125,7 @@ namespace ConcurrentClient
 
         private static char[] messageBuffer;
 
-        [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
+        [ServiceBehavior(UseSynchronizationContext = true)]
         class Callback : ICallback
         {
             public void NotifyBegin(int id)

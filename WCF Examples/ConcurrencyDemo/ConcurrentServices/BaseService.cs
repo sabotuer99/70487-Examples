@@ -13,9 +13,15 @@ namespace ConcurrentServices
         public void Process(int id)
         {
             ICallback client = OperationContext.Current.GetCallbackChannel<ICallback>();
-            client.NotifyBegin(id);
-            Thread.Sleep(Rand(2000,6000));
-            client.NotifyEnd(id);
+            try
+            {
+                client.NotifyBegin(id);
+                Thread.Sleep(Rand(2000, 6000));
+                client.NotifyEnd(id);
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         readonly ThreadLocal<Random> random =

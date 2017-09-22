@@ -49,6 +49,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\PCR_Reference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\PCS_Reference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -59,12 +64,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\PSR_Reference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\PSS_Reference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Connected Services\SM_Reference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\SR_Reference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -86,6 +101,13 @@
     <None Include="Connected Services\PCM_Reference\service1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\PCR_Reference\service.wsdl" />
+    <None Include="Connected Services\PCR_Reference\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\PCR_Reference\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\PCS_Reference\service.wsdl" />
     <None Include="Connected Services\PCS_Reference\service.xsd">
       <SubType>Designer</SubType>
@@ -98,6 +120,13 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\PSM_Reference\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\PSR_Reference\service.wsdl" />
+    <None Include="Connected Services\PSR_Reference\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\PSR_Reference\service1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\PSS_Reference\service.wsdl" />
@@ -114,6 +143,13 @@
     <None Include="Connected Services\SM_Reference\service1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\SR_Reference\service.wsdl" />
+    <None Include="Connected Services\SR_Reference\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SR_Reference\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\SS_Reference\service.wsdl" />
     <None Include="Connected Services\SS_Reference\service.xsd">
       <SubType>Designer</SubType>
@@ -127,10 +163,13 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\PCM_Reference\" />
+    <WCFMetadataStorage Include="Connected Services\PCR_Reference\" />
     <WCFMetadataStorage Include="Connected Services\PCS_Reference\" />
     <WCFMetadataStorage Include="Connected Services\PSM_Reference\" />
+    <WCFMetadataStorage Include="Connected Services\PSR_Reference\" />
     <WCFMetadataStorage Include="Connected Services\PSS_Reference\" />
     <WCFMetadataStorage Include="Connected Services\SM_Reference\" />
+    <WCFMetadataStorage Include="Connected Services\SR_Reference\" />
     <WCFMetadataStorage Include="Connected Services\SS_Reference\" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +249,42 @@
       <Project>{3430BD05-820A-46B4-B87C-01C237195B01}</Project>
       <Name>ConcurrentServices</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\PCR_Reference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\PCR_Reference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\PCR_Reference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\PSR_Reference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\PSR_Reference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\PSR_Reference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SR_Reference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SR_Reference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SR_Reference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

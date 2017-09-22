@@ -3,7 +3,8 @@
 namespace ConcurrentServices.Services
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single,
-                     ConcurrencyMode = ConcurrencyMode.Multiple)]
+                     ConcurrencyMode = ConcurrencyMode.Multiple,
+                     UseSynchronizationContext = true)]
     public class Singleton_Multi_Service : BaseService
     {
     }

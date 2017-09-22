@@ -10,10 +10,12 @@ namespace ConcurrentServices
     [ServiceContract]
     public interface ICallback
     {
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
+        //[OperationContract]
         void NotifyBegin(int id);
 
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
+        //[OperationContract]
         void NotifyEnd(int id);
 
     }

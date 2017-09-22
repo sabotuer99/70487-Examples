@@ -3,9 +3,9 @@
 namespace ConcurrentServices.Services
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession,
-                     ConcurrencyMode = ConcurrencyMode.Multiple,
+                     ConcurrencyMode = ConcurrencyMode.Reentrant,
                      UseSynchronizationContext = true)]
-    public class PerSession_Multi_Service : BaseService
+    public class PerSession_Reentrant_Service : BaseService
     {
     }
 }

@@ -3,7 +3,8 @@
 namespace ConcurrentServices.Services
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession,
-                     ConcurrencyMode = ConcurrencyMode.Reentrant)]
+                     ConcurrencyMode = ConcurrencyMode.Single,
+                     UseSynchronizationContext = true)]
     public class PerSession_Single_Service : BaseService
     {
     }

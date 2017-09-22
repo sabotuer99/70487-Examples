@@ -47,12 +47,15 @@
     <Compile Include="ICallback.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Services\PerCall_Multi_Service.cs" />
+    <Compile Include="Services\PerCall_Reentrant_Service.cs" />
     <Compile Include="Services\PerCall_Single_Service.cs" />
     <Compile Include="Services\PerSession_Multi_Service.cs" />
+    <Compile Include="Services\PerSession_Reentrant_Service.cs" />
     <Compile Include="Services\PerSession_Single_Service.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Singleton_Multi_Service.cs" />
+    <Compile Include="Services\Singleton_Reentrant_Service.cs" />
     <Compile Include="Services\Singleton_Single_Service.cs" />
   </ItemGroup>
   <ItemGroup>
