@@ -1,0 +1,2 @@
+﻿<%@ ServiceHost Debug="true" Factory="IISHosted.Factory" 
+    Service="ConcurrentServices.Services.PerSession_Single_Service"%>

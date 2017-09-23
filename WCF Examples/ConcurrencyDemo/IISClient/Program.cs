@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,10 +13,14 @@ namespace IISClient
 
     class Program
     {
+        private const char CHANNEL_CREATED = 'C';
+        private const char CHANNEL_OPENING = 'O';
+        private const char CHANNEL_FAULTED = 'X';
         private const char PROCESSING_STARTED = 'B';
         private const char PROCESSING = 'P';
         private const char PROCESSING_FINISHED = 'F';
         private const char CALL_INITIATED = 'I';
+        //private static bool startProcessing = true;
 
         static void Main(string[] args)
         {
@@ -35,6 +40,7 @@ namespace IISClient
                 for (int i = 0; i < 50; i++)
                 {
                     ProcessMessageBuffer(messageBuffer);
+                    
                     Thread.Sleep(1000);
                 }
                 Console.WriteLine("################################################################################");
@@ -51,6 +57,7 @@ namespace IISClient
                 "WSDualHttpBinding_IService2","WSDualHttpBinding_IService3","NetTcpBinding_IService1",
                 "WSDualHttpBinding_IService4","WSDualHttpBinding_IService5","NetTcpBinding_IService2" };
             int[] offsets = { 3, 11, 19, 29, 37, 45, 55, 63, 71 };
+            
             for (int i = 0; i < 9; i++)
             {
                 string endpoint = serviceNames[i];
@@ -59,9 +66,38 @@ namespace IISClient
                 for (int j = 0; j < 6; j++)
                 {
                     int id = offset + j;
-                    Task.Run(() => client.Process(id));
-                    messageBuffer[id] = CALL_INITIATED;
-                    //Console.WriteLine("Started: " + id);
+                    var state = ((IChannel)client).State;
+                    Task.Run(() => {
+                        var clientState = ((IChannel)client).State;
+
+                        if(clientState == CommunicationState.Faulted ||
+                           clientState == CommunicationState.Closed ||
+                           clientState == CommunicationState.Closing)
+                        {
+                            messageBuffer[id] = CHANNEL_FAULTED;
+                            return;
+                        }
+
+                        if (clientState == CommunicationState.Opened)
+                        {
+                            client.Process(id);
+                            messageBuffer[id] = CALL_INITIATED;
+                            //startProcessing = true;
+                        } else
+                        {
+                            if(clientState == CommunicationState.Created)
+                            {
+                                messageBuffer[id] = CHANNEL_CREATED;
+
+                            } else
+                            {
+                                messageBuffer[id] = CHANNEL_OPENING;
+                            }
+                            
+                            Thread.Sleep(100);
+                        } 
+                    });
+
                 }
             }
         }
@@ -88,6 +124,18 @@ namespace IISClient
                     char x = messageBuffer[i];
                     switch (x)
                     {
+                        case CHANNEL_CREATED:
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            Console.Write(x);
+                            break;
+                        case CHANNEL_FAULTED:
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.Write(x);
+                            break;
+                        case CHANNEL_OPENING:
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write(x);
+                            break;
                         case PROCESSING_STARTED:
                             Console.ForegroundColor = ConsoleColor.Green;
                             messageBuffer[i] = PROCESSING;
@@ -121,7 +169,9 @@ namespace IISClient
         {
             ICallback localService = new Callback();
             var dcf = new DuplexChannelFactory<IService>(localService, serviceName);
-            return dcf.CreateChannel();
+            var client = dcf.CreateChannel();
+            ((IClientChannel)client).Open();
+            return client;
         }
 
         private static char[] messageBuffer;

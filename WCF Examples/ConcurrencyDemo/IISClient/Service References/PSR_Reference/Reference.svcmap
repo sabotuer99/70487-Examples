@@ -19,12 +19,12 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://192.168.1.148:12008/concurrency/Service1.svc?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="net.tcp://192.168.1.148:12008/concurrency/Service1.svc/mex/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="fff079c7-e1a8-46db-9b66-ccae1dda8073" SourceId="1" SourceUrl="http://192.168.1.148:12008/concurrency/Service1.svc?wsdl" />
-    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="ed0860a5-151c-49ed-9cc9-f85e1e878fad" SourceId="1" SourceUrl="http://192.168.1.148:12008/concurrency/Service1.svc?xsd=xsd0" />
-    <MetadataFile FileName="Service11.xsd" MetadataType="Schema" ID="8483d62a-e27f-4de9-96de-8aeb2867c32d" SourceId="1" SourceUrl="http://192.168.1.148:12008/concurrency/Service1.svc?xsd=xsd1" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="5da4a44c-9857-4a08-b21f-cd23ad5fda7c" SourceId="1" SourceUrl="net.tcp://192.168.1.148:12008/concurrency/Service1.svc/mex/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="1ff227be-ea66-49d8-bc36-627364bc1b75" SourceId="1" SourceUrl="net.tcp://192.168.1.148:12008/concurrency/Service1.svc/mex/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="9f4c4539-7915-425a-b31e-8ea69889a667" SourceId="1" SourceUrl="net.tcp://192.168.1.148:12008/concurrency/Service1.svc/mex/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
