@@ -1,0 +1,5 @@
+﻿<%@ ServiceHost Language="C#" 
+    Debug="true" 
+    Service="IISHosted.Service1" 
+    CodeBehind="Service1.svc.cs" 
+    Factory="IISHosted.Factory"%>
