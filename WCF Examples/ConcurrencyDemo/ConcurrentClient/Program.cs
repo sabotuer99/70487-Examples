@@ -21,12 +21,12 @@ namespace ConcurrentClient
             Console.WriteLine("                      Press 'Enter' to start.");
             Console.ReadLine();
             Console.WriteLine("                  Press 'Enter' again at any time to exit...");
-            Console.WriteLine("################################################################################");
-            Console.WriteLine("#         PerCall                  PerSession                 Singleton        #");
-            Console.WriteLine("#  ######  ######  ######    ######  ######  ######    ######  ######  ######  #");
-            Console.WriteLine("#  Multi   Single  Reentr    Multi   Single  Reentr    Multi   Single  Reentr  #");
-            Console.WriteLine("#  ######  ######  ######    ######  ######  ######    ######  ######  ######  #");
-            Console.WriteLine("#  012345  012345  012345    012345  012345  012345    012345  012345  012345  #");
+            Console.WriteLine("##########################################################################################################");
+            Console.WriteLine("#         PerCall                  PerSession                 Singleton              Singleton Again     #");
+            Console.WriteLine("#  ######  ######  ######    ######  ######  ######    ######  ######  ######    ######  ######  ######  #");
+            Console.WriteLine("#  Multi   Single  Reentr    Multi   Single  Reentr    Multi   Single  Reentr    Multi   Single  Reentr  #");
+            Console.WriteLine("#  ######  ######  ######    ######  ######  ######    ######  ######  ######    ######  ######  ######  #");
+            Console.WriteLine("#  012345  012345  012345    012345  012345  012345    012345  012345  012345    012345  012345  012345  #");
 
             messageBuffer = NewBuffer();
             Task.Run(() =>
@@ -36,7 +36,7 @@ namespace ConcurrentClient
                     ProcessMessageBuffer(messageBuffer);
                     Thread.Sleep(1000);
                 }
-                Console.WriteLine("################################################################################");
+                Console.WriteLine("##########################################################################################################");
             });
 
             RunServices(messageBuffer);
@@ -48,9 +48,10 @@ namespace ConcurrentClient
         {
             string[] serviceNames = { "WSDualHttpBinding_IService","WSDualHttpBinding_IService1","NetTcpBinding_IService",
                                       "WSDualHttpBinding_IService2","WSDualHttpBinding_IService3","NetTcpBinding_IService1",
-                                      "WSDualHttpBinding_IService4","WSDualHttpBinding_IService5","NetTcpBinding_IService2" };
-            int[] offsets = { 3, 11, 19, 29, 37, 45, 55, 63, 71 };
-            for (int i = 0; i < 9; i++)
+                                      "WSDualHttpBinding_IService4","WSDualHttpBinding_IService5","NetTcpBinding_IService2",
+                                      "WSDualHttpBinding_IService4","WSDualHttpBinding_IService5","NetTcpBinding_IService2"};
+            int[] offsets = { 3, 11, 19, 29, 37, 45, 55, 63, 71, 81, 89, 97};
+            for (int i = 0; i < 12; i++)
             {
                 string endpoint = serviceNames[i];
                 int offset = offsets[i];
@@ -67,14 +68,14 @@ namespace ConcurrentClient
 
         private static char[] NewBuffer()
         {
-            var messageBuffer = new char[80];
+            var messageBuffer = new char[106];
             for (int i = 0; i < messageBuffer.Length; i++)
             {
                 messageBuffer[i] = ' ';
             }
 
             messageBuffer[0] = '#';
-            messageBuffer[79] = '#';
+            messageBuffer[105] = '#';
             return messageBuffer;
         }
 
