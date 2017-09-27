@@ -189,3 +189,5 @@ _Pvt_Extensions/
 ModelManifest.xml
 Entity Framework Examples/InheritanceModels/WebApplication1/packages/*
 AzureStorageDemo/packages/*
+/WCF Examples/AzureCloudServiceDemo/packages
+/WCF Examples/AzureCloudServiceDemo/.vs/config

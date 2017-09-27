@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "AzureCloudService", "AzureCloudService\AzureCloudService.ccproj", "{79458BE8-B0EE-48E2-83D3-7A6C12702E1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFServiceWebRole1", "WCFServiceWebRole1\WCFServiceWebRole1.csproj", "{D3B90A49-35DF-4EAB-8DC9-5EC7130FDB73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureCloudClient", "AzureCloudClient\AzureCloudClient.csproj", "{179DADA5-EDEB-45C2-AD52-CE98B720E564}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79458BE8-B0EE-48E2-83D3-7A6C12702E1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79458BE8-B0EE-48E2-83D3-7A6C12702E1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79458BE8-B0EE-48E2-83D3-7A6C12702E1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79458BE8-B0EE-48E2-83D3-7A6C12702E1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3B90A49-35DF-4EAB-8DC9-5EC7130FDB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3B90A49-35DF-4EAB-8DC9-5EC7130FDB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3B90A49-35DF-4EAB-8DC9-5EC7130FDB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3B90A49-35DF-4EAB-8DC9-5EC7130FDB73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{179DADA5-EDEB-45C2-AD52-CE98B720E564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{179DADA5-EDEB-45C2-AD52-CE98B720E564}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{179DADA5-EDEB-45C2-AD52-CE98B720E564}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{179DADA5-EDEB-45C2-AD52-CE98B720E564}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
