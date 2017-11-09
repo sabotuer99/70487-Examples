@@ -43,14 +43,14 @@ namespace DogApi.Controllers
                 friends = new List<Dog>()
             });
 
-            //_repo[0].friends.Add(_repo[1]);
-            //_repo[0].friends.Add(_repo[2]);
-            //_repo[1].friends.Add(_repo[0]);
-            //_repo[1].friends.Add(_repo[3]);
-            //_repo[2].friends.Add(_repo[0]);
-            //_repo[2].friends.Add(_repo[3]);
-            //_repo[3].friends.Add(_repo[1]);
-            //_repo[3].friends.Add(_repo[2]);
+            _repo[0].friends.Add(_repo[1]);
+            _repo[0].friends.Add(_repo[2]);
+            _repo[1].friends.Add(_repo[0]);
+            _repo[1].friends.Add(_repo[3]);
+            _repo[2].friends.Add(_repo[0]);
+            _repo[2].friends.Add(_repo[3]);
+            _repo[3].friends.Add(_repo[1]);
+            _repo[3].friends.Add(_repo[2]);
         }
 
 
@@ -61,9 +61,9 @@ namespace DogApi.Controllers
         }
 
         // GET: api/Dogs
-        public IEnumerable<string> Get()
+        public IEnumerable<Dog> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _repo;
         }
 
         // GET: api/Dogs/5

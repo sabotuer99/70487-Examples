@@ -1,7 +1,11 @@
-﻿using System;
+﻿using DogApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Web.Http;
+using System.Web.Http.Routing;
 
 namespace DogApi
 {
@@ -10,6 +14,12 @@ namespace DogApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            //config.Formatters.Clear();
+            //var json = new JsonMediaTypeFormatter();
+            //json.SerializerSettings.PreserveReferencesHandling =
+            //    Newtonsoft.Json.PreserveReferencesHandling.All;
+            //config.Formatters.Add(json);
+            config.Formatters.Add(new DogMediaFormatter());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -18,6 +28,18 @@ namespace DogApi
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "ConstrainedApi",
+                routeTemplate: "api/Constraints/{alpha}/{id}",
+                defaults: new {
+                    controller = "Constraints",
+                    id = RouteParameter.Optional,
+                    alpha = "alpha" },
+                constraints: new {
+                    alpha = @"[A-Za-z]+",
+                    httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
         }
     }
