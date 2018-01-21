@@ -13,6 +13,8 @@ namespace DogApi
     {
         protected void Application_Start()
         {
+            GlobalConfiguration.Configuration.Formatters.Clear();
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

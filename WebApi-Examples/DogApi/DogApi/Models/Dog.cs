@@ -8,8 +8,8 @@ namespace DogApi.Models
     public class Dog
     {
         public string name;
-        public Owner owner;
-        public List<Toy> toys;
-        public List<Dog> friends;
+        public Owner owner = new Owner();
+        public List<Toy> toys = new List<Toy>();
+        public List<Dog> friends = new List<Dog>();
     }
 }

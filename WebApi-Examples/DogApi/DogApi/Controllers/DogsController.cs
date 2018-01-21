@@ -1,9 +1,11 @@
-﻿using DogApi.Models;
+﻿using DogApi.Filters;
+using DogApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
 
@@ -11,8 +13,8 @@ namespace DogApi.Controllers
 {
     public class DogsController : ApiController
     {
-        private List<Dog> _repo = new List<Dog>();
-        public DogsController()
+        private static List<Dog> _repo = new List<Dog>();
+        static DogsController()
         {
             _repo.Add(new Dog()
             {
@@ -78,9 +80,37 @@ namespace DogApi.Controllers
             return Request.CreateResponse(HttpStatusCode.NotFound);
         }
 
-        // POST: api/Dogs
-        public void Post([FromBody]string value)
+        [LoggingActionFilter]
+        [Route("api/Dogs/Gizmo")]
+        public HttpResponseMessage GetGizmoDog()
         {
+            var dog = new Dog(){ name = "Gizmo"};
+
+            IContentNegotiator negotiator = this.Configuration.Services.GetContentNegotiator();
+
+            ContentNegotiationResult result = negotiator.Negotiate(
+                typeof(Dog), this.Request, this.Configuration.Formatters);
+            if (result == null)
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+                throw new HttpResponseException(response);
+            }
+
+            return new HttpResponseMessage()
+            {
+                Content = new ObjectContent<Dog>(
+                    dog,                // What we are serializing 
+                    result.Formatter,           // The media formatter
+                    result.MediaType.MediaType  // The MIME type
+                )
+            };
+        }
+
+        // POST: api/Dogs
+        public HttpResponseMessage Post(Dog dog)
+        {
+            _repo.Add(dog);
+            return Request.CreateResponse(HttpStatusCode.Created, _repo.Count - 1);
         }
 
         // PUT: api/Dogs/5
