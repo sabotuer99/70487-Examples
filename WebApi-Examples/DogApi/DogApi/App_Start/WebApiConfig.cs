@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Batch;
 using System.Web.Http.Routing;
 
 namespace DogApi
@@ -28,6 +29,13 @@ namespace DogApi
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+    //Add batch route
+    config.Routes.MapHttpBatchRoute(
+        routeName: "batch",
+        routeTemplate: "api/batch",
+        batchHandler: new CustomHttpBatchHandler(GlobalConfiguration.DefaultServer)
+    );
+         
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
@@ -45,6 +53,16 @@ namespace DogApi
                     alpha = @"[A-Za-z]+",
                     httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
+
+
+        }
+
+        private class CustomHttpBatchHandler : DefaultHttpBatchHandler
+        {
+            public CustomHttpBatchHandler(HttpServer httpServer) : base(httpServer)
+            {
+                this.ExecutionOrder = BatchExecutionOrder.NonSequential;
+            }
         }
     }
 }

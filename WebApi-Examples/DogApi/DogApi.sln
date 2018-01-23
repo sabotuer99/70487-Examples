@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.13
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogApi", "DogApi\DogApi.csproj", "{A7FC5063-A9A4-4F1C-B325-ADC421288DE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogApi.Tests", "DogApi.Tests\DogApi.Tests.csproj", "{EECF73B6-D055-44F8-BEFC-0E006EE2BEDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchTest", "BatchTest\BatchTest.csproj", "{555D3584-9435-479A-BF8A-3A0111A4B58B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{EECF73B6-D055-44F8-BEFC-0E006EE2BEDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EECF73B6-D055-44F8-BEFC-0E006EE2BEDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EECF73B6-D055-44F8-BEFC-0E006EE2BEDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{555D3584-9435-479A-BF8A-3A0111A4B58B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{555D3584-9435-479A-BF8A-3A0111A4B58B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{555D3584-9435-479A-BF8A-3A0111A4B58B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{555D3584-9435-479A-BF8A-3A0111A4B58B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
