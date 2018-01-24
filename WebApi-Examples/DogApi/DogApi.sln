@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogApi.Tests", "DogApi.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchTest", "BatchTest\BatchTest.csproj", "{555D3584-9435-479A-BF8A-3A0111A4B58B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinHosted", "OwinHosted\OwinHosted.csproj", "{94A3A080-77A7-42AE-984A-6904EC1BC4AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{555D3584-9435-479A-BF8A-3A0111A4B58B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{555D3584-9435-479A-BF8A-3A0111A4B58B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{555D3584-9435-479A-BF8A-3A0111A4B58B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94A3A080-77A7-42AE-984A-6904EC1BC4AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94A3A080-77A7-42AE-984A-6904EC1BC4AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94A3A080-77A7-42AE-984A-6904EC1BC4AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94A3A080-77A7-42AE-984A-6904EC1BC4AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
