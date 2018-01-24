@@ -15,6 +15,8 @@ namespace DogApi
     {
         public static void Register(HttpConfiguration config)
         {
+
+
             // Web API configuration and services
             config.Formatters.Clear();
             var json = new JsonMediaTypeFormatter();

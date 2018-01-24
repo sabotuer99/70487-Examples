@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="AzureHosted" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="WorkerRole1">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=ciserver5q0ozkhw;AccountKey=$(_ciserver5q0ozkhw.key_)" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="ab546ad0-9120-49a2-a421-aeda5ca47ade" />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>

@@ -14,7 +14,7 @@ using System.Web.Http.Routing;
 
 namespace OwinHosted
 {
-    class Startup
+    public class Startup
     {
         public void Configuration(IAppBuilder appBuilder)
         {
