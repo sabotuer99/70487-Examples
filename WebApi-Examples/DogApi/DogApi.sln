@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinBasicAuth", "OwinBasicA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinWindowsAuth", "OwinWindowsAuth\OwinWindowsAuth.csproj", "{615957BA-9AA7-421B-9239-E773BF1A458F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicAuthFilter", "BasicAuthFilter\BasicAuthFilter.csproj", "{28B6F5FD-C51E-4DF9-A513-94E7C8A8E563}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{615957BA-9AA7-421B-9239-E773BF1A458F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{615957BA-9AA7-421B-9239-E773BF1A458F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{615957BA-9AA7-421B-9239-E773BF1A458F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28B6F5FD-C51E-4DF9-A513-94E7C8A8E563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B6F5FD-C51E-4DF9-A513-94E7C8A8E563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B6F5FD-C51E-4DF9-A513-94E7C8A8E563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B6F5FD-C51E-4DF9-A513-94E7C8A8E563}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
