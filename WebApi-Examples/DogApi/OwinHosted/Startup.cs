@@ -56,6 +56,8 @@ namespace OwinHosted
                 }
             );
 
+            appBuilder.UseGoogleAuthentication();
+
             appBuilder.UseWebApi(config); 
         }
 

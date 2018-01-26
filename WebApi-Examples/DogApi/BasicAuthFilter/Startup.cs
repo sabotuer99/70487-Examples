@@ -10,7 +10,8 @@ namespace BasicAuthFilter
             HttpConfiguration config = new HttpConfiguration();
 
             config.SuppressHostPrincipal();
-            config.Filters.Add(new BasicAuthenticationFilter());            
+            config.Filters.Add(new BasicAuthenticationFilter());
+            config.Filters.Add(new AccessTokenAuthenticationFilter());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

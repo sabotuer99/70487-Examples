@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessTokenAuthenticationFilter.cs" />
     <Compile Include="BasicAuthenticationFilter.cs" />
     <Compile Include="CheckAuthorizationAttribute.cs" />
     <Compile Include="DemoController.cs" />

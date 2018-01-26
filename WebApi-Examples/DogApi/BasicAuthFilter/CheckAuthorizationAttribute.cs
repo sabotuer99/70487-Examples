@@ -29,7 +29,7 @@ namespace BasicAuthFilter
                 name = actionContext.ControllerContext.RequestContext.Principal.Identity.Name;
                 if (!users.Contains(name, StringComparer.InvariantCultureIgnoreCase))
                 {
-                    throw new Exception("You are not on the list...");
+                    throw new Exception("Sorry " + name + ", you are not on the list...");
                 }
             } catch (Exception ex)
             {
@@ -40,7 +40,8 @@ namespace BasicAuthFilter
             }
         }
 
-        public override Task OnAuthorizationAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
+        public override Task OnAuthorizationAsync(
+            HttpActionContext actionContext, CancellationToken cancellationToken)
         {
             OnAuthorization(actionContext);
             return Task.FromResult(0);

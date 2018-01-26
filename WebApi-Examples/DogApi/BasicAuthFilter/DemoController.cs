@@ -11,7 +11,7 @@ namespace BasicAuthFilter
     {
         [Authorize]
         [Route("api/Demo")]
-        [CheckAuthorization("troy", "bob")]
+        [CheckAuthorization("troy", "bob", "service account")]
         public HttpResponseMessage Get()
         {
             var id = ClaimsPrincipal.Current;
