@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
@@ -10,6 +11,7 @@ namespace BasicAuthFilter
     {
         [Authorize]
         [Route("api/Demo")]
+        [CheckAuthorization("troy", "bob")]
         public HttpResponseMessage Get()
         {
             var id = ClaimsPrincipal.Current;

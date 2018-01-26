@@ -16,7 +16,7 @@ using System.Web.Http.Filters;
 
 namespace BasicAuthFilter
 {
-    class BasicAuthenticationFilter : IAuthenticationFilter
+    class BasicAuthenticationFilter : Attribute, IAuthenticationFilter
     {
         public bool AllowMultiple
         {
@@ -34,14 +34,9 @@ namespace BasicAuthFilter
             AuthenticationHeaderValue authorization = request.Headers.Authorization;
 
             // 2. If there are no credentials, do nothing.
-            if (authorization == null)
-            {
-                return;
-            }
-
             // 3. If there are credentials but the filter does not recognize the 
             //    authentication scheme, do nothing.
-            if (authorization.Scheme != "Basic")
+            if (authorization == null || authorization.Scheme != "Basic")
             {
                 return;
             }
